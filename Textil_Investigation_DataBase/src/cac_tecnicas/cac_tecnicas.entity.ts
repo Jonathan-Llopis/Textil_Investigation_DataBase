@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Cac_Tecnicas {
+export class Cac_TecnicasEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
