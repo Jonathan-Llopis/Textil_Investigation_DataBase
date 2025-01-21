@@ -3,7 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   // ManyToMany,
-  // ManyToMany,
 } from 'typeorm';
 // import { Composicion } from '../composicion/composicion.entity';
 // import { TipoEstructural } from '../tipo-estructural/tipo-estructural.entity';
@@ -15,8 +14,8 @@ import {
 // import { OrigenReciclado } from '../origen-reciclado/origen-reciclado.entity';
 // import { Simbolologia } from '../simbolologia/simbolologia.entity';
 // import { UserEntity } from '../users/users.entity';
-@Entity('telas')
-export class Tela {
+@Entity()
+export class TelaEntity {
   @PrimaryGeneratedColumn()
   id_tela: number;
 

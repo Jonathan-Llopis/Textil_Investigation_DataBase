@@ -16,10 +16,6 @@ export class UsersService {
   async getAllUser(xml?: string): Promise<UserEntity[] | string> {
     const users = await this.usersRepository.find({
       relations: [
-        'users_reserve',
-        'receivedReviews',
-        'writtenReviews',
-        'shop_owned',
       ],
     });
     if (xml === 'true') {
@@ -46,10 +42,6 @@ export class UsersService {
     const userEntity = await this.usersRepository.findOne({
       where: { id_user: id_user },
       relations: [
-        'users_reserve',
-        'receivedReviews',
-        'receivedReviews',
-        'shop_owned',
       ],
     });
 

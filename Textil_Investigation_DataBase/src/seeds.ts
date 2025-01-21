@@ -3,6 +3,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { runSeeders, SeederOptions } from 'typeorm-extension';
 import { UserEntity } from './users/users.entity';
 import { config } from 'dotenv';
+import { TelaEntity } from './tela/tela.entity';
 
 config();
 
@@ -16,6 +17,7 @@ const options: DataSourceOptions & SeederOptions = {
 
   entities: [
     UserEntity,
+    TelaEntity
   ],
   seeds: [
   ],

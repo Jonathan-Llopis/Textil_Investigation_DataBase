@@ -13,6 +13,8 @@ import { AuthorizationMiddleware } from './authorization.middleware';
 import { AuthService } from './Autentication/auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FilesModule } from './files/files.module';
+import { TelaModule } from './tela/tela.module';
+import { TelaEntity } from './tela/tela.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -25,6 +27,7 @@ import { FilesModule } from './files/files.module';
     }),
     UsersModule,
     UtilsModule,
+    TelaModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -39,6 +42,7 @@ import { FilesModule } from './files/files.module';
         database: configService.get('MYSQL_DATABASE'),
         entities: [
           UserEntity,
+          TelaEntity
         ],
         synchronize: true,
       }),
@@ -46,6 +50,7 @@ import { FilesModule } from './files/files.module';
     }),
     TypeOrmModule.forFeature([
       UserEntity,
+      TelaEntity
     ]),
     FilesModule,
   ],

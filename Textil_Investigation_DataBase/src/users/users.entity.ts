@@ -1,9 +1,6 @@
 import {
   Entity,
   Column,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
   PrimaryColumn,
 } from 'typeorm';
 
@@ -26,7 +23,4 @@ export class UserEntity {
 
   @Column({ type: 'timestamp', nullable: true })
   tokenExpiration: Date;
-
-
-
 }
