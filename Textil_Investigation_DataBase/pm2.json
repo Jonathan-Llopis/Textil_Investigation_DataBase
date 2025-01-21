@@ -1,5 +1,5 @@
 {
-    "name": "roll_and_reserve",
+    "name": "textil_investigation",
     "script": "npm i && npm run start:dev",
     "instances": "1",
     "env": {

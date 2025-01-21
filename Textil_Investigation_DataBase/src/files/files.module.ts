@@ -7,8 +7,6 @@ import { UsersService } from '../users/users.service';
 import { UtilsModule } from '../utils/utils.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../users/users.entity';
-import { ShopsService } from '../shops/shops.service';
-import { ShopsEntity } from '../shops/shops.entity';
 
 @Module({
   imports: [
@@ -16,14 +14,13 @@ import { ShopsEntity } from '../shops/shops.entity';
       useClass: GridFsMulterConfigService,
     }),
     UtilsModule,
-    TypeOrmModule.forFeature([UserEntity, ShopsEntity]),
+    TypeOrmModule.forFeature([UserEntity]),
   ],
   controllers: [FilesController],
   providers: [
     GridFsMulterConfigService,
     FilesService,
     UsersService,
-    ShopsService,
   ],
 })
 export class FilesModule {}

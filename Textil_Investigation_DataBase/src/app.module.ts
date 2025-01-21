@@ -11,26 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserEntity } from './users/users.entity';
 import { AuthorizationMiddleware } from './authorization.middleware';
 import { AuthService } from './Autentication/auth.service';
-import { MailModule } from './mail/mail.module';
-import { LabelsModule } from './utils/labels.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ShopsModule } from './shops/shops.module';
-import { TablesModule } from './tables/tables.module';
-import { GamesModule } from './games/games.module';
-import { DifficultyModule } from './difficulty/difficulty.module';
-import { GameCategoryModule } from './game_category/game_category.module';
-import { ReviewsModule } from './reviews/reviews.module';
-import { ShopGamesModule } from './shop_games/shop_games.module';
-import { ReservesService } from './reserves/reserves.service';
-import { ReservesModule } from './reserves/reserves.module';
-import { UsersTablesModule } from './users_reserves/users_reserves.module';
-import { ReviewsEntity } from './reviews/reviews.entity';
-import { ShopsEntity } from './shops/shops.entity';
-import { TablesEntity } from './tables/tables.entity';
-import { ReservesEntity } from './reserves/reserves.entity';
-import { GamesEntity } from './games/game.entitiy';
-import { DifficultyEntity } from './difficulty/difficulty.entity';
-import { GameCategoryEntity } from './game_category/game_category.entity';
 import { FilesModule } from './files/files.module';
 @Module({
   imports: [
@@ -44,8 +25,6 @@ import { FilesModule } from './files/files.module';
     }),
     UsersModule,
     UtilsModule,
-    MailModule,
-    LabelsModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -60,42 +39,18 @@ import { FilesModule } from './files/files.module';
         database: configService.get('MYSQL_DATABASE'),
         entities: [
           UserEntity,
-          ReviewsEntity,
-          ShopsEntity,
-          TablesEntity,
-          ReservesEntity,
-          GamesEntity,
-          GameCategoryEntity,
-          DifficultyEntity,
-
         ],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([
-      ReviewsEntity,
-      ShopsEntity,
-      TablesEntity,
-      ReservesEntity,
-      GamesEntity,
-      GameCategoryEntity,
-      DifficultyEntity,
       UserEntity,
     ]),
-    ShopsModule,
-    TablesModule,
-    GamesModule,
-    DifficultyModule,
-    GameCategoryModule,
-    ReviewsModule,
-    ShopGamesModule,
-    ReservesModule,
-    UsersTablesModule,
     FilesModule,
   ],
   controllers: [],
-  providers: [AuthorizationMiddleware, AuthService, ReservesService],
+  providers: [AuthorizationMiddleware, AuthService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
