@@ -27,6 +27,11 @@ export class TelaController {
     return this.telaService.findAll();
   }
 
+  // Obtener una sola tela por ID
+  @Get(':id')
+  async getTelaById(@Param('id') id: number) {
+    return this.telaService.findOne(id);
+  }
   // Actualizar una tela por ID
   @Put(':id')
   async updateTela(

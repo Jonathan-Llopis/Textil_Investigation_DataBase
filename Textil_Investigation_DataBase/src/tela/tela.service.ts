@@ -23,6 +23,15 @@ export class TelaService {
     return this.telaRepository.find();
   }
 
+  // Obtener una tela por ID
+  async findOne(id: number): Promise<TelaEntity> {
+    const tela = await this.telaRepository.findOne({ where: { id_tela: id } });
+    if (!tela) {
+      throw new NotFoundException('Tela no encontrada');
+    }
+    return tela;
+  }
+
   // Actualizar una tela por ID
   async update(id: number, updateTelaDto: UpdateTelaDto): Promise<TelaEntity> {
     const tela = await this.telaRepository.findOne({ where: { id_tela: id } });

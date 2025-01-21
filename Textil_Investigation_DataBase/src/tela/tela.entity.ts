@@ -6,7 +6,6 @@ import {
   ManyToMany,
   JoinTable,
   // ManyToMany,
-  // ManyToMany,
 } from 'typeorm';
 // import { Composicion } from '../composicion/composicion.entity';
 // import { CaracteristicaTecnica } from '../caracteristicas-tecnicas/caracteristica-tecnica.entity';
