@@ -1,0 +1,50 @@
+version: '3'
+services:
+  web_server:
+    build: ./Roll_and_Reserve_DataBase
+    ports:
+      - ${WEB_SERVER_PORT}:3000
+    depends_on:
+      - database
+      # - mongodb
+    container_name: Roll_and_Reserve-webserver
+    working_dir: /web
+    command: pm2-runtime start pm2.json
+    volumes:
+      - ./Roll_and_Reserve_DataBase:/web
+    environment:
+      - TZ=Europe/Berlin
+
+  # flutter:
+  #   build: ./Roll_and_Reserve_App
+  #   depends_on:
+  #     - web_server
+  #   ports:
+  #     - 8080:8080
+  #   container_name: Roll_and_Reserve-flutter
+  #   volumes:
+  #     - ./Roll_and_Reserve:/app
+  #   environment:
+  #     - TZ=Europe/Berlin
+
+  database:
+    image: yobasystems/alpine-mariadb:10.11.8
+    container_name: Roll_and_Reserve-db
+    ports:
+      - "2222:3306"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=Europe/Berlin
+    volumes:
+      - ./Roll_and_Reserve/data/db/mysql:/var/lib/mysql
+
+  mongodb:
+    image: mongo:noble
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./Roll_and_Reserve/data/mongo-data:/data/db
