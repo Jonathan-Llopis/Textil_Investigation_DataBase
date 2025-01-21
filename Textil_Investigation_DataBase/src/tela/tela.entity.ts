@@ -1,12 +1,14 @@
+import { TipoEstructuralEntity } from 'src/tipo_estructural/tipo_estructural.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  ManyToMany,
+  JoinTable,
   // ManyToMany,
   // ManyToMany,
 } from 'typeorm';
 // import { Composicion } from '../composicion/composicion.entity';
-// import { TipoEstructural } from '../tipo-estructural/tipo-estructural.entity';
 // import { CaracteristicaTecnica } from '../caracteristicas-tecnicas/caracteristica-tecnica.entity';
 // import { CaracteristicaVisual } from '../caracteristicas-visuales/caracteristica-visual.entity';
 // import { Aplicacion } from '../aplicaciones/aplicacion.entity';
@@ -15,8 +17,8 @@ import {
 // import { OrigenReciclado } from '../origen-reciclado/origen-reciclado.entity';
 // import { Simbolologia } from '../simbolologia/simbolologia.entity';
 // import { UserEntity } from '../users/users.entity';
-@Entity('telas')
-export class Tela {
+@Entity()
+export class TelaEntity {
   @PrimaryGeneratedColumn()
   id_tela: number;
 
@@ -32,10 +34,13 @@ export class Tela {
   //   @JoinTable()
   //   composiciones: Composicion[];
 
-  //   // Relación Many-to-Many con Tipo Estructural
-  //   @ManyToMany(() => TipoEstructural, (tipoEstructural) => tipoEstructural.telas)
-  //   @JoinTable()
-  //   tipo_estructurales: TipoEstructural[];
+  // Relación Many-to-Many con Tipo Estructural
+  @ManyToMany(
+    () => TipoEstructuralEntity,
+    (tipoEstructural) => tipoEstructural.telas,
+  )
+  @JoinTable()
+  tipo_estructurales: TipoEstructuralEntity[];
 
   //   // Relación Many-to-Many con Características Técnicas
   //   @ManyToMany(() => CaracteristicaTecnica, (caracteristicaTecnica) => caracteristicaTecnica.telas)
