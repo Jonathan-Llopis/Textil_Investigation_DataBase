@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Estructura } from './estructura-ligamento.entity';
-import { CreateEstructuraDto } from './dtos/create-estructura.dto';
-import { UpdateEstructuraDto } from './dtos/update-estructura.dto';
+import { EstructuraLigamentosEntity } from './estructura-ligamento.entity';
+import { CreateEstructuraDto, UpdateEstructuraDto } from './estructura-ligamento.dto';
 
 @Injectable()
 export class EstructuraService {
   constructor(
-    @InjectRepository(Estructura)
-    private readonly estructuraRepository: Repository<Estructura>,
+    @InjectRepository(EstructuraLigamentosEntity)
+    private readonly estructuraRepository: Repository<EstructuraLigamentosEntity>,
   ) {}
 
   create(createEstructuraDto: CreateEstructuraDto) {

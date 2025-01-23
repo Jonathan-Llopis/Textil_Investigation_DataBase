@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { EstructuraService } from './estructura-ligamento.service';
-import { CreateEstructuraDto } from './dtos/create-estructura.dto';
+import { CreateEstructuraDto } from './estructura-ligamento.dto';
 import { UpdateEstructuraDto } from './dtos/update-estructura.dto';
 
 

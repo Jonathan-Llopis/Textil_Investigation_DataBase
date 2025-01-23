@@ -2,14 +2,14 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UtilsService } from '../utils/utils.service';
-import { Conservacion } from './conservacion.entity';
+import { ConservacionEntity } from './conservacion.entity';
 import { CreateConservacionDto, UpdateConservacionDto } from './conservacion.dto';
 
 @Injectable()
 export class ConservacionService {
   constructor(
-    @InjectRepository(Conservacion)
-    private readonly conservacionRepository: Repository<Conservacion>,
+    @InjectRepository(ConservacionEntity)
+    private readonly conservacionRepository: Repository<ConservacionEntity>,
     private readonly utilsService: UtilsService,
   ) {}
 
@@ -52,7 +52,7 @@ export class ConservacionService {
   async updateConservacion(
     id: number,
     updateConservacionDto: UpdateConservacionDto,
-  ): Promise<Conservacion> {
+  ): Promise<ConservacionEntity> {
     const conservacion = await this.conservacionRepository.findOne({
       where: { id: id },
     });

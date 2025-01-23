@@ -10,4 +10,4 @@ import { TipoEstructuralEntity } from './tipo_estructural.entity';
   providers: [TipoEstructuralService],
   exports: [TipoEstructuralService],
 })
-export class TelaModule {}
+export class TipoEstructuralModule {}
