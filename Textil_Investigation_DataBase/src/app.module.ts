@@ -13,7 +13,6 @@ import { AuthorizationMiddleware } from './authorization.middleware';
 import { AuthService } from './Autentication/auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FilesModule } from './files/files.module';
-import { EstructuraLigamentoModule } from './estructura-ligamento/estructura-ligamento.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -49,7 +48,6 @@ import { EstructuraLigamentoModule } from './estructura-ligamento/estructura-lig
       UserEntity,
     ]),
     FilesModule,
-    EstructuraLigamentoModule,
   ],
   controllers: [],
   providers: [AuthorizationMiddleware, AuthService],

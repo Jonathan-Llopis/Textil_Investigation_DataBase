@@ -7,7 +7,4 @@ export class Composicion {
 
   @Column({ type: 'text' })
   descripcion: string;
-
-  @ManyToMany(() => Tela, (tela) => tela.composiciones)
-  telas: Tela[];
 }
