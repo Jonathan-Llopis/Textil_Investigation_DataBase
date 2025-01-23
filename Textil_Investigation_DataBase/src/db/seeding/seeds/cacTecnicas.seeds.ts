@@ -9,8 +9,6 @@ export class CacTecnicasSeeder implements Seeder {
 
     await cacTecnicasRepository.save(cacTecnicasData);
 
-    console.log(
-      'Datos de Caracteristicas Técnicas insertados',
-    );
+    console.log('Datos de Caracteristicas Técnicas insertados');
   }
 }

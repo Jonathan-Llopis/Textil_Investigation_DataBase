@@ -57,7 +57,10 @@ export class Cac_TecnicasController {
   }
 
   @Put(':id')
-  async updateCacTecnica(@Param('id') id: string, @Body() updateCacTecnicaDto: UpdateCacTecnicaDto) {
+  async updateCacTecnica(
+    @Param('id') id: string,
+    @Body() updateCacTecnicaDto: UpdateCacTecnicaDto,
+  ) {
     return this.cacTecnicasService.updateCacTecnica(
       parseInt(id),
       updateCacTecnicaDto,

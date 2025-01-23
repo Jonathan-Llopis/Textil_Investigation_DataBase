@@ -19,17 +19,8 @@ const options: DataSourceOptions & SeederOptions = {
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
 
-  entities: [
-    UserEntity,
-    TelaEntity,
-    ConservacionEntity,
-    Cac_TecnicasEntity
-  ],
-  seeds: [
-    ConservacionSeeder,
-    CacTecnicasSeeder
-    
-  ],
+  entities: [UserEntity, TelaEntity, ConservacionEntity, Cac_TecnicasEntity],
+  seeds: [ConservacionSeeder, CacTecnicasSeeder],
 };
 
 const dataSource = new DataSource(options);

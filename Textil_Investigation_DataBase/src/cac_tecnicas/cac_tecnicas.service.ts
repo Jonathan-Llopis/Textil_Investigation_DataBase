@@ -42,16 +42,17 @@ export class Cac_TecnicasService {
   }
 
   async createCacTecnica(
-    createCacTecnicaDto: CreateCacTecnicaDto
+    createCacTecnicaDto: CreateCacTecnicaDto,
   ): Promise<{ message: string }> {
-    const newCacTecnica = this.cacTecnicasRepository.create(createCacTecnicaDto);
+    const newCacTecnica =
+      this.cacTecnicasRepository.create(createCacTecnicaDto);
     await this.cacTecnicasRepository.save(newCacTecnica);
     return { message: 'Técnica creada satisfactoriamente' };
   }
 
   async updateCacTecnica(
     id: number,
-    updateCacTecnicaDto: UpdateCacTecnicaDto
+    updateCacTecnicaDto: UpdateCacTecnicaDto,
   ): Promise<Cac_TecnicasEntity> {
     const cacTecnica = await this.cacTecnicasRepository.findOne({
       where: { id: id },

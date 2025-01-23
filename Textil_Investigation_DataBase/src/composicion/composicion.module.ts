@@ -4,7 +4,6 @@ import { ComposicionEntity } from './composicion.entity';
 import { ComposicionController } from './composicion.controller';
 import { ComposicionService } from './composicion.service';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([ComposicionEntity])],
   controllers: [ComposicionController],

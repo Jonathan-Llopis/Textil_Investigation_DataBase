@@ -3,7 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UtilsService } from '../utils/utils.service';
 import { ConservacionEntity } from './conservacion.entity';
-import { CreateConservacionDto, UpdateConservacionDto } from './conservacion.dto';
+import {
+  CreateConservacionDto,
+  UpdateConservacionDto,
+} from './conservacion.dto';
 
 @Injectable()
 export class ConservacionService {
@@ -30,7 +33,10 @@ export class ConservacionService {
     });
 
     if (!conservacion) {
-      throw new HttpException('Conservación no encontrada', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'Conservación no encontrada',
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     if (format === 'xml') {
@@ -44,7 +50,9 @@ export class ConservacionService {
   async createConservacion(
     createConservacionDto: CreateConservacionDto,
   ): Promise<{ message: string }> {
-    const newConservacion = this.conservacionRepository.create(createConservacionDto);
+    const newConservacion = this.conservacionRepository.create(
+      createConservacionDto,
+    );
     await this.conservacionRepository.save(newConservacion);
     return { message: 'Conservación creada satisfactoriamente' };
   }
@@ -58,7 +66,10 @@ export class ConservacionService {
     });
 
     if (!conservacion) {
-      throw new HttpException('Conservación no encontrada', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'Conservación no encontrada',
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     await this.conservacionRepository.update(id, updateConservacionDto);
@@ -72,7 +83,10 @@ export class ConservacionService {
     const result = await this.conservacionRepository.delete(id);
 
     if (result.affected === 0) {
-      throw new HttpException('Conservación no encontrada', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'Conservación no encontrada',
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     return { message: 'Conservación eliminada satisfactoriamente' };

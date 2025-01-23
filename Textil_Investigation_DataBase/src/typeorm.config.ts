@@ -4,7 +4,6 @@ import { UserEntity } from './users/users.entity';
 import * as dotenv from 'dotenv';
 import { TelaEntity } from './tela/tela.entity';
 
-
 dotenv.config();
 
 const config = {
@@ -14,10 +13,7 @@ const config = {
   username: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  entities: [
-    UserEntity,
-    TelaEntity,
-  ],
+  entities: [UserEntity, TelaEntity],
   migrations: ['./../../../migrations/*.ts'],
   synchronize: false,
 };
