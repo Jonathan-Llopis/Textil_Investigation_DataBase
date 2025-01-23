@@ -1,6 +1,0 @@
-# Ignorar todo por defecto
-*
-
-# Excepto las carpetas específicas
-!src/composicion/
-!src/estructura-ligamento/
