@@ -1,5 +1,11 @@
 import { TelaEntity } from 'src/tela/tela.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 
 @Entity()
 export class ConservacionEntity {
@@ -9,7 +15,7 @@ export class ConservacionEntity {
   @Column()
   description: string;
 
-    @ManyToMany(() => TelaEntity, (telas) => telas.conservaciones)
-    @JoinTable()
-    telas: TelaEntity[];
+  @ManyToMany(() => TelaEntity, (telas) => telas.conservaciones)
+  @JoinTable()
+  telas: TelaEntity[];
 }

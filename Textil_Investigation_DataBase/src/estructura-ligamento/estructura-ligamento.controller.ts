@@ -1,8 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { EstructuraService } from './estructura-ligamento.service';
 import { CreateEstructuraDto } from './estructura-ligamento.dto';
 import { UpdateEstructuraDto } from './dtos/update-estructura.dto';
-
 
 @Controller('estructura')
 export class EstructuraController {
@@ -24,7 +31,10 @@ export class EstructuraController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstructuraDto: UpdateEstructuraDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateEstructuraDto: UpdateEstructuraDto,
+  ) {
     return this.estructuraService.update(+id, updateEstructuraDto);
   }
 

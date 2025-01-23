@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EstructuraLigamentosEntity } from './estructura-ligamento.entity';
-import { CreateEstructuraDto, UpdateEstructuraDto } from './estructura-ligamento.dto';
+import {
+  CreateEstructuraDto,
+  UpdateEstructuraDto,
+} from './estructura-ligamento.dto';
 
 @Injectable()
 export class EstructuraService {

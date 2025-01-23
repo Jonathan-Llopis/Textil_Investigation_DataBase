@@ -5,9 +5,9 @@ import { EstructuraController } from './estructura-ligamento.controller';
 import { EstructuraService } from './estructura-ligamento.service';
 
 Module({
-    imports: [TypeOrmModule.forFeature([EstructuraLigamentosEntity])],
-    controllers: [EstructuraController],
-    providers: [EstructuraService],
-    exports: [EstructuraService],
-  })
-  export class EstructuraModule {}
+  imports: [TypeOrmModule.forFeature([EstructuraLigamentosEntity])],
+  controllers: [EstructuraController],
+  providers: [EstructuraService],
+  exports: [EstructuraService],
+});
+export class EstructuraModule {}

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ComposicionEntity } from './composicion.entity';
-import { CreateComposicionDto } from './dtos/create.dto';
+import { CreateComposicionDto } from './composicion.dto';
 import { UpdateComposicionDto } from './dtos/update.dto';
 
 @Injectable()

@@ -15,8 +15,7 @@ export class UsersService {
 
   async getAllUser(xml?: string): Promise<UserEntity[] | string> {
     const users = await this.usersRepository.find({
-      relations: [
-      ],
+      relations: [],
     });
     if (xml === 'true') {
       const jsonformatted = JSON.stringify({
@@ -41,8 +40,7 @@ export class UsersService {
   ): Promise<UserEntity | string | null> {
     const userEntity = await this.usersRepository.findOne({
       where: { id_user: id_user },
-      relations: [
-      ],
+      relations: [],
     });
 
     if (userEntity != null) {
@@ -80,7 +78,10 @@ export class UsersService {
   async deleteUser(id_user: number): Promise<void> {
     await this.usersRepository.delete({ id_user });
   }
-  async validateUser(email: string, password: string): Promise<UserEntity | null> {
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<UserEntity | null> {
     const user = await this.usersRepository.findOne({ where: { email } });
     if (user && (await bcrypt.compare(password, user.password))) {
       return user;

@@ -57,7 +57,6 @@ import { ConservacionModule } from './conservacion/conservacion.module';
           Cac_TecnicasEntity,
           ConservacionEntity,
           EstructuraLigamentosEntity,
-
         ],
         synchronize: true,
       }),
@@ -78,7 +77,6 @@ import { ConservacionModule } from './conservacion/conservacion.module';
     CacTecnicasModule,
     ConservacionModule,
     EstructuraLigamentosEntity,
-    
   ],
   controllers: [],
   providers: [AuthorizationMiddleware, AuthService],
