@@ -1,15 +1,15 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UtilsService } from '../utils/utils.service';
-import { Cac_Tecnicas } from './cac_tecnicas.entity';
+import { Cac_TecnicasEntity } from './cac_tecnicas.entity';
 import { Repository } from 'typeorm';
 import { CreateCacTecnicaDto, UpdateCacTecnicaDto } from './cac_tecnica.dto';
 
 @Injectable()
 export class Cac_TecnicasService {
   constructor(
-    @InjectRepository(Cac_Tecnicas)
-    private readonly cacTecnicasRepository: Repository<Cac_Tecnicas>,
+    @InjectRepository(Cac_TecnicasEntity)
+    private readonly cacTecnicasRepository: Repository<Cac_TecnicasEntity>,
     private readonly utilsService: UtilsService,
   ) {}
 
@@ -52,7 +52,7 @@ export class Cac_TecnicasService {
   async updateCacTecnica(
     id: number,
     updateCacTecnicaDto: UpdateCacTecnicaDto
-  ): Promise<Cac_Tecnicas> {
+  ): Promise<Cac_TecnicasEntity> {
     const cacTecnica = await this.cacTecnicasRepository.findOne({
       where: { id: id },
     });
