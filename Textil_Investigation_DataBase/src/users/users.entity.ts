@@ -1,7 +1,10 @@
+import { TelaEntity } from 'src/tela/tela.entity';
 import {
   Entity,
   Column,
   PrimaryColumn,
+  JoinTable,
+  ManyToMany,
 } from 'typeorm';
 
 @Entity()
@@ -23,4 +26,9 @@ export class UserEntity {
 
   @Column({ type: 'timestamp', nullable: true })
   tokenExpiration: Date;
+
+
+  @ManyToMany(() => TelaEntity, (tela) => tela.users)
+  @JoinTable()
+  telas_favoritas: TelaEntity[];
 }
