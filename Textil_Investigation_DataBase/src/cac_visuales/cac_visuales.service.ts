@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CacVisual } from './cac_visuales.entity';
-import { CreateCacVisualDto } from './dtos/create_cac_visuales.dto';
-import { UpdateCacVisualDto } from './dtos/update-cac_visual.dto';
+import { CacVisualEntity } from './cac_visuales.entity';
+import { CreateCacVisualDto, UpdateCacVisualDto } from './cac_visuales.dto';
 
 @Injectable()
 export class CacVisualesService {
   constructor(
-    @InjectRepository(CacVisual)
-    private readonly cacVisualRepository: Repository<CacVisual>,
+    @InjectRepository(CacVisualEntity)
+    private readonly cacVisualRepository: Repository<CacVisualEntity>,
   ) {}
 
   create(createCacVisualDto: CreateCacVisualDto) {

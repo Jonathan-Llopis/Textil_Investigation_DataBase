@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CacVisualesService } from './cac_visuales.service';
-import { CreateCacVisualDto } from './dtos/create_cac_visuales.dto';
-import { UpdateCacVisualDto } from './dtos/update-cac_visual.dto';
+import { CreateCacVisualDto, UpdateCacVisualDto } from './cac_visuales.dto';
 
 
 @Controller('cac-visuales')
