@@ -9,6 +9,6 @@ export class AplicacionesEntity {
   @Column()
   tipo_aplicacion: string;
 
-  @ManyToMany(() => TelaEntity, (tela) => tela.aplicaciones)
+  @ManyToMany(() => TelaEntity, (tela) => tela.aplicaciones_tela)
   telas: TelaEntity[];
 }

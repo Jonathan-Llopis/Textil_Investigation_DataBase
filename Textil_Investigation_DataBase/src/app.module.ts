@@ -24,6 +24,8 @@ import { ComposicionModule } from './composicion/composicion.module';
 import { TipoEstructuralModule } from './tipo_estructural/tipo_estructural.module';
 import { CacTecnicasModule } from './cac_tecnicas/cac_tecnicas.module';
 import { ConservacionModule } from './conservacion/conservacion.module';
+import { AplicacionesEntity } from './aplicaciones/aplicaciones.enttity';
+import { AplicacionesModule } from './aplicaciones/aplicaciones.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -57,6 +59,7 @@ import { ConservacionModule } from './conservacion/conservacion.module';
           Cac_TecnicasEntity,
           ConservacionEntity,
           EstructuraLigamentosEntity,
+          AplicacionesEntity
         ],
         synchronize: true,
       }),
@@ -70,6 +73,7 @@ import { ConservacionModule } from './conservacion/conservacion.module';
       Cac_TecnicasEntity,
       ConservacionEntity,
       EstructuraLigamentosEntity,
+      AplicacionesEntity
     ]),
     FilesModule,
     ComposicionModule,
@@ -77,6 +81,7 @@ import { ConservacionModule } from './conservacion/conservacion.module';
     CacTecnicasModule,
     ConservacionModule,
     EstructuraLigamentosEntity,
+    AplicacionesModule
   ],
   controllers: [],
   providers: [AuthorizationMiddleware, AuthService],
