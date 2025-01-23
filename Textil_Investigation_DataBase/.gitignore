@@ -4,3 +4,4 @@
 # Excepto las carpetas específicas
 !src/composicion/
 !src/estructura-ligamento/
+!src/cac_visuales/
