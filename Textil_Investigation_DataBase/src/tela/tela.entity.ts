@@ -1,3 +1,4 @@
+import { AplicacionesEntity } from 'src/aplicaciones/aplicaciones.enttity';
 import { TipoEstructuralEntity } from 'src/tipo_estructural/tipo_estructural.entity';
 import {
   Entity,
@@ -40,6 +41,10 @@ export class TelaEntity {
   )
   @JoinTable()
   tipo_estructurales: TipoEstructuralEntity[];
+
+  @ManyToMany(() => AplicacionesEntity, (aplicaciones) => aplicaciones.telas)
+  @JoinTable()
+  aplicaciones: AplicacionesEntity[];
 
   //   // Relación Many-to-Many con Características Técnicas
   //   @ManyToMany(() => CaracteristicaTecnica, (caracteristicaTecnica) => caracteristicaTecnica.telas)
