@@ -1,25 +1,16 @@
-import { ReservesEntity } from '../reserves/reserves.entity';
-import { ReviewsEntity } from '../reviews/reviews.entity';
-import { ShopsEntity } from '../shops/shops.entity';
 import {
   Entity,
   Column,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
   PrimaryColumn,
 } from 'typeorm';
 
 @Entity()
 export class UserEntity {
   @PrimaryColumn()
-  id_google: string;
+  id_user: number;
 
   @Column()
   username: string;
-
-  @Column()
-  name: string;
 
   @Column()
   password: string;
@@ -27,31 +18,9 @@ export class UserEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column({ default: 0 })
-  role: number;
-
-  @Column({ type: 'timestamp', nullable: true })
-  tokenExpiration: Date;
-
   @Column({ nullable: true })
   token: string;
 
-  @Column({ nullable: true })
-  avatar: string;
-
-  @Column({ nullable: true })
-  average_raiting: number;
-
-  @OneToMany(() => ReviewsEntity, (reviews) => reviews.writer, { onDelete: 'CASCADE' })
-  writtenReviews: ReviewsEntity[];
-
-  @OneToMany(() => ReviewsEntity, (reviews) => reviews.reviewed, { onDelete: 'CASCADE' })
-  receivedReviews: ReviewsEntity[];
-
-  @OneToMany(() => ShopsEntity, (shop) => shop.owner, { onDelete: 'CASCADE' })
-  shop_owned: ShopsEntity[];
-
-  @ManyToMany(() => ReservesEntity, (reserve) => reserve.users_in_reserve, { onDelete: 'CASCADE' })
-  @JoinTable()
-  users_reserve: ReservesEntity[];
+  @Column({ type: 'timestamp', nullable: true })
+  tokenExpiration: Date;
 }

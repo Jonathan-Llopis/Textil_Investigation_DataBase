@@ -112,7 +112,7 @@ export class FilesController {
     };
   }
 
-  @Post('avatar/:id')
+  @Post('telaFoto/:id')
   @UseInterceptors(
     FilesInterceptor('file', 10, {
       fileFilter: (req, file, callback) => {
@@ -137,7 +137,7 @@ export class FilesController {
         uploadDate: file.uploadDate,
         contentType: file.contentType,
       };
-      this.userService.vincularArchivo(idUser, file.id);
+      //this..vincularArchivo(idUser, file.id);
       response.push(fileReponse);
     });
     return response;

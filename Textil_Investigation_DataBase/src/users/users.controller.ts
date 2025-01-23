@@ -11,7 +11,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { AuthService } from '../Autentication/auth.service';
-import { MailService } from '../mail/mail.service';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { UsersService } from './users.service';
 @Controller('Users')
@@ -19,7 +18,6 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private readonly authService: AuthService,
-    private readonly mailService: MailService,
   ) {}
 
   @Get()
@@ -41,7 +39,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  getUser(@Param('id') id: string, @Query('xml') xml?: string) {
+  getUser(@Param('id') id: number, @Query('xml') xml?: string) {
     const userId = id;
     if (!userId) {
       throw new HttpException('Invalid user ID', HttpStatus.BAD_REQUEST);
@@ -55,7 +53,7 @@ export class UsersController {
   }
 
   @Put(':id')
-  updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  updateUser(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
     const userId = id;
     if (!userId) {
       throw new HttpException('Invalid user ID', HttpStatus.BAD_REQUEST);
@@ -63,14 +61,14 @@ export class UsersController {
     return this.usersService.updateUser(
       {
         ...updateUserDto,
-        id_google: userId,
+        id_user: userId,
       },
       userId,
     );
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: string) {
+  deleteUser(@Param('id') id: number) {
     const userId = id
 
     return this.usersService.deleteUser(userId);
@@ -95,7 +93,7 @@ export class UsersController {
       );
     }
 
-    const token = await this.authService.generateToken(user.id_google);
+    const token = await this.authService.generateToken(user.id_user);
 
     return { token };
   }
