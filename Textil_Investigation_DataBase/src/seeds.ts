@@ -4,6 +4,10 @@ import { runSeeders, SeederOptions } from 'typeorm-extension';
 import { UserEntity } from './users/users.entity';
 import { config } from 'dotenv';
 import { TelaEntity } from './tela/tela.entity';
+import { ConservacionEntity } from './conservacion/conservacion.entity';
+import { ConservacionSeeder } from './db/seeding/seeds/conservacion.seeds';
+import { CacTecnicasSeeder } from './db/seeding/seeds/cacTecnicas.seeds';
+import { Cac_TecnicasEntity } from './cac_tecnicas/cac_tecnicas.entity';
 
 config();
 
@@ -17,9 +21,14 @@ const options: DataSourceOptions & SeederOptions = {
 
   entities: [
     UserEntity,
-    TelaEntity
+    TelaEntity,
+    ConservacionEntity,
+    Cac_TecnicasEntity
   ],
   seeds: [
+    ConservacionSeeder,
+    CacTecnicasSeeder
+    
   ],
 };
 
