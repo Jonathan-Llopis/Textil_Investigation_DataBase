@@ -16,10 +16,6 @@ export class UsersService {
   async getAllUser(xml?: string): Promise<UserEntity[] | string> {
     const users = await this.usersRepository.find({
       relations: [
-        'users_reserve',
-        'receivedReviews',
-        'writtenReviews',
-        'shop_owned',
       ],
     });
     if (xml === 'true') {
@@ -40,16 +36,12 @@ export class UsersService {
   }
 
   async getUser(
-    id_user: string,
+    id_user: number,
     xml?: string,
   ): Promise<UserEntity | string | null> {
     const userEntity = await this.usersRepository.findOne({
-      where: { id_google: id_user },
+      where: { id_user: id_user },
       relations: [
-        'users_reserve',
-        'receivedReviews',
-        'receivedReviews',
-        'shop_owned',
       ],
     });
 
@@ -67,10 +59,10 @@ export class UsersService {
 
   async updateUser(
     updateUserDto: UpdateUserDto,
-    id_user: string,
+    id_user: number,
   ): Promise<UserEntity> {
     const userEntity = await this.usersRepository.findOne({
-      where: { id_google: id_user },
+      where: { id_user: id_user },
     });
 
     if (!userEntity) {
@@ -81,14 +73,12 @@ export class UsersService {
       userEntity.email = updateUserDto.email;
     }
 
-    userEntity.name = updateUserDto.name;
     userEntity.username = updateUserDto.username;
-    userEntity.role = updateUserDto.role;
 
     return this.usersRepository.save(userEntity);
   }
-  async deleteUser(id_google: string): Promise<void> {
-    await this.usersRepository.delete({ id_google });
+  async deleteUser(id_user: number): Promise<void> {
+    await this.usersRepository.delete({ id_user });
   }
   async validateUser(email: string, password: string): Promise<UserEntity | null> {
     const user = await this.usersRepository.findOne({ where: { email } });
@@ -96,17 +86,5 @@ export class UsersService {
       return user;
     }
     return null;
-  }
-
-  async vincularArchivo(id_user: string, id_archivo: string) {
-    const user = await this.usersRepository.findOne({
-      where: { id_google: id_user },
-    });
-
-    if (!user) {
-      throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND);
-    }
-    user.avatar = id_archivo.toString();
-    return this.usersRepository.save(user);
   }
 }

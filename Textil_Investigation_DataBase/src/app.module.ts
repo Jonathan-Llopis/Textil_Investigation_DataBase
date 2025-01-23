@@ -14,6 +14,8 @@ import { AuthService } from './Autentication/auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FilesModule } from './files/files.module';
 import { EstructuraLigamentoModule } from './estructura-ligamento/estructura-ligamento.module';
+import { TelaModule } from './tela/tela.module';
+import { TelaEntity } from './tela/tela.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -26,6 +28,7 @@ import { EstructuraLigamentoModule } from './estructura-ligamento/estructura-lig
     }),
     UsersModule,
     UtilsModule,
+    TelaModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -40,6 +43,7 @@ import { EstructuraLigamentoModule } from './estructura-ligamento/estructura-lig
         database: configService.get('MYSQL_DATABASE'),
         entities: [
           UserEntity,
+          TelaEntity
         ],
         synchronize: true,
       }),
@@ -47,6 +51,7 @@ import { EstructuraLigamentoModule } from './estructura-ligamento/estructura-lig
     }),
     TypeOrmModule.forFeature([
       UserEntity,
+      TelaEntity
     ]),
     FilesModule,
     EstructuraLigamentoModule,

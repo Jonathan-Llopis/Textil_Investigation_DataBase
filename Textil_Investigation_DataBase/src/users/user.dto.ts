@@ -9,52 +9,40 @@ import {
   Length,
   IsArray,
 } from 'class-validator';
-import { TablesEntity } from '../tables/tables.entity';
 export class CreateUserDto {
   @IsOptional()
   @IsString()
-  id_google?: string;
-
-  @IsString()
-  @Length(1, 500)
-  name: string;
+  id_user?: number;
 
   @IsString()
   @Length(1, 500)
   username: string;
 
+  @IsString()
+  @Length(1, 500)
+  password: string;
+
   @IsEmail()
   email: string;
-
-  @IsInt()
-  @Min(0)
-  @Max(2)
-  role: number;
-
 }
 
 export class UpdateUserDto {
   @IsOptional()
   @IsString()
-  id_google?: string;
-
-  @IsString()
-  @IsOptional()
-  @Length(1, 500)
-  name?: string;
+  id_user?: number;
 
   @IsString()
   @IsOptional()
   @Length(1, 500)
   username: string;
 
+  @IsString()
+  @IsString()
+  @Length(1, 500)
+  password: string;
+
+
   @IsEmail()
   @IsOptional()
   email?: string;
-
-  @IsInt()
-  @IsOptional()
-  @Min(0)
-  @Max(2)
-  role?: number;
 }

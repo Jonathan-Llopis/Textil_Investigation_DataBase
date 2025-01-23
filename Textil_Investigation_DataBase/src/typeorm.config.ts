@@ -2,6 +2,7 @@ import { registerAs } from '@nestjs/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { UserEntity } from './users/users.entity';
 import * as dotenv from 'dotenv';
+import { TelaEntity } from './tela/tela.entity';
 
 
 dotenv.config();
@@ -15,7 +16,7 @@ const config = {
   database: process.env.MYSQL_DATABASE,
   entities: [
     UserEntity,
-
+    TelaEntity,
   ],
   migrations: ['./../../../migrations/*.ts'],
   synchronize: false,
