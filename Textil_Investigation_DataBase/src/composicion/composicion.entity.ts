@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity()
 export class Composicion {
@@ -7,4 +7,7 @@ export class Composicion {
 
   @Column({ type: 'text' })
   descripcion: string;
+
+  @ManyToMany(() => Tela, (tela) => tela.composiciones)
+  telas: Tela[];
 }

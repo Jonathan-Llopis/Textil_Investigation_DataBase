@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity()
 export class Estructura {
@@ -10,4 +10,7 @@ export class Estructura {
 
   @Column({ type: 'text', nullable: true })
   detalle: string;
+
+  @ManyToMany(() => Tela, (tela) => tela.estructuras)
+  telas: Tela[];
 }
