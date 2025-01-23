@@ -8,8 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ComposicionService } from './composicion.service';
-import { CreateComposicionDto } from './composicion.dto';
-import { UpdateComposicionDto } from './dtos/update.dto';
+import { CreateComposicionDto, UpdateComposicionDto } from './composicion.dto';
 
 @Controller('composicion')
 export class ComposicionController {
