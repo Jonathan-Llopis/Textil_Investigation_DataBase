@@ -39,7 +39,7 @@ export class TelaEntity {
 
   @ManyToMany(() => AplicacionesEntity, (aplicaciones) => aplicaciones.telas)
   @JoinTable()
-  aplicaciones: AplicacionesEntity[];
+  aplicaciones_tela: AplicacionesEntity[];
 
   // Relación Many-to-Many con Características Técnicas
   @ManyToMany(
@@ -53,11 +53,6 @@ export class TelaEntity {
   // @ManyToMany(() => CaracteristicaVisual, (caracteristicaVisual) => caracteristicaVisual.telas)
   // @JoinTable()
   // caracteristicas_visuales: CaracteristicaVisual[];
-
-  // // Relación Many-to-Many con Aplicaciones
-  // @ManyToMany(() => Aplicacion, (aplicacion) => aplicacion.telas)
-  // @JoinTable()
-  // aplicaciones: Aplicacion[];
 
   // Relación Many-to-Many con Conservación
   @ManyToMany(() => ConservacionEntity, (conservacion) => conservacion.telas)
