@@ -13,9 +13,17 @@ import { AuthorizationMiddleware } from './authorization.middleware';
 import { AuthService } from './Autentication/auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FilesModule } from './files/files.module';
-import { EstructuraLigamentoModule } from './estructura-ligamento/estructura-ligamento.module';
 import { TelaModule } from './tela/tela.module';
 import { TelaEntity } from './tela/tela.entity';
+import { ComposicionEntity } from './composicion/composicion.entity';
+import { TipoEstructuralEntity } from './tipo_estructural/tipo_estructural.entity';
+import { Cac_TecnicasEntity } from './cac_tecnicas/cac_tecnicas.entity';
+import { ConservacionEntity } from './conservacion/conservacion.entity';
+import { EstructuraLigamentosEntity } from './estructura-ligamento/estructura-ligamento.entity';
+import { ComposicionModule } from './composicion/composicion.module';
+import { TipoEstructuralModule } from './tipo_estructural/tipo_estructural.module';
+import { CacTecnicasModule } from './cac_tecnicas/cac_tecnicas.module';
+import { ConservacionModule } from './conservacion/conservacion.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -43,7 +51,12 @@ import { TelaEntity } from './tela/tela.entity';
         database: configService.get('MYSQL_DATABASE'),
         entities: [
           UserEntity,
-          TelaEntity
+          TelaEntity,
+          ComposicionEntity,
+          TipoEstructuralEntity,
+          Cac_TecnicasEntity,
+          ConservacionEntity,
+          EstructuraLigamentosEntity,
         ],
         synchronize: true,
       }),
@@ -51,9 +64,19 @@ import { TelaEntity } from './tela/tela.entity';
     }),
     TypeOrmModule.forFeature([
       UserEntity,
-      TelaEntity
+      TelaEntity,
+      ComposicionEntity,
+      TipoEstructuralEntity,
+      Cac_TecnicasEntity,
+      ConservacionEntity,
+      EstructuraLigamentosEntity,
     ]),
     FilesModule,
+    ComposicionModule,
+    TipoEstructuralModule,
+    CacTecnicasModule,
+    ConservacionModule,
+    EstructuraLigamentosEntity,
   ],
   controllers: [],
   providers: [AuthorizationMiddleware, AuthService],

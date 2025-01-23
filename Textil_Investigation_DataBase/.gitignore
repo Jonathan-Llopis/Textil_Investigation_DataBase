@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignorar todo por defecto
 *
 
@@ -5,3 +6,5 @@
 !src/composicion/
 !src/estructura-ligamento/
 !src/cac_visuales/
+=======
+>>>>>>> main

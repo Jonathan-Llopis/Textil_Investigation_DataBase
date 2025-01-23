@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { TelaEntity } from 'src/tela/tela.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinTable,
+  ManyToMany,
+} from 'typeorm';
 
 @Entity()
 export class Cac_TecnicasEntity {
@@ -8,8 +15,8 @@ export class Cac_TecnicasEntity {
   @Column()
   description: string;
 
-//  //Relación Many-to-Many con Características Técnicas
-//   @ManyToMany(() => TelaEntity , (telas) => telas.caracteristicaTecnica)
-//   @JoinTable()
-//   telas: TelaEntity [];
+  //Relación Many-to-Many con Características Técnicas
+  @ManyToMany(() => TelaEntity, (telas) => telas.caracteristicas_tecnicas)
+  @JoinTable()
+  telas: TelaEntity[];
 }

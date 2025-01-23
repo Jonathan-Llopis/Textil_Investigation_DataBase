@@ -69,7 +69,7 @@ export class UsersController {
 
   @Delete(':id')
   deleteUser(@Param('id') id: number) {
-    const userId = id
+    const userId = id;
 
     return this.usersService.deleteUser(userId);
   }

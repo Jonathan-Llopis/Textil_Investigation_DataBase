@@ -1,7 +1,8 @@
+import { TelaEntity } from 'src/tela/tela.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity()
-export class Estructura {
+export class EstructuraLigamentosEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,6 +12,6 @@ export class Estructura {
   @Column({ type: 'text', nullable: true })
   detalle: string;
 
-  @ManyToMany(() => Tela, (tela) => tela.estructuras)
-  telas: Tela[];
+  @ManyToMany(() => TelaEntity, (tela) => tela.tipo_estructurales)
+  telas: TelaEntity[];
 }
