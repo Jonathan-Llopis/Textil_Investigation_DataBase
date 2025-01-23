@@ -26,6 +26,8 @@ import { CacTecnicasModule } from './cac_tecnicas/cac_tecnicas.module';
 import { ConservacionModule } from './conservacion/conservacion.module';
 import { AplicacionesEntity } from './aplicaciones/aplicaciones.enttity';
 import { AplicacionesModule } from './aplicaciones/aplicaciones.module';
+import { CacVisualEntity } from './cac_visuales/cac_visuales.entity';
+import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -59,7 +61,8 @@ import { AplicacionesModule } from './aplicaciones/aplicaciones.module';
           Cac_TecnicasEntity,
           ConservacionEntity,
           EstructuraLigamentosEntity,
-          AplicacionesEntity
+          AplicacionesEntity,
+          CacVisualEntity
         ],
         synchronize: true,
       }),
@@ -81,7 +84,8 @@ import { AplicacionesModule } from './aplicaciones/aplicaciones.module';
     CacTecnicasModule,
     ConservacionModule,
     EstructuraLigamentosEntity,
-    AplicacionesModule
+    AplicacionesModule,
+    CacVisualesModule
   ],
   controllers: [],
   providers: [AuthorizationMiddleware, AuthService],
