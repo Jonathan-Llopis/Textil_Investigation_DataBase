@@ -54,7 +54,6 @@ import { TelaEntity } from './tela/tela.entity';
       TelaEntity
     ]),
     FilesModule,
-    EstructuraLigamentoModule,
   ],
   controllers: [],
   providers: [AuthorizationMiddleware, AuthService],
