@@ -1,4 +1,14 @@
-import { Controller, Post, Put, Delete, Param, Body, Get, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  Get,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { TelaTipoEstructuralService } from './tela-tipo_estructural.service';
 import { isEmpty } from 'class-validator';
 import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
@@ -15,7 +25,10 @@ export class TelaTipoEstructuralController {
     @Param('id') idTela: number,
     @Body() createTelaTipoEstructuralDto: CreateTelaDto,
   ) {
-    return this.telaTipoEstructuralService.addTelaToTipoEstructural(createTelaTipoEstructuralDto, idTela);
+    return this.telaTipoEstructuralService.addTelaToTipoEstructural(
+      createTelaTipoEstructuralDto,
+      idTela,
+    );
   }
 
   // Actualizar la relación de TipoEstructural de una Tela
@@ -46,10 +59,17 @@ export class TelaTipoEstructuralController {
   }
 
   @Get('tipoestructural/:tipoEstructuralId/telas')
-  async findTelasByTipoEstructuralId(@Param('tipoEstructuralId') tipoEstructuralId: string) {
+  async findTelasByTipoEstructuralId(
+    @Param('tipoEstructuralId') tipoEstructuralId: string,
+  ) {
     if (isEmpty(tipoEstructuralId)) {
-      throw new HttpException('Invalid tipo estructural ID', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Invalid tipo estructural ID',
+        HttpStatus.BAD_REQUEST,
+      );
     }
-    return this.telaTipoEstructuralService.findTelasByTipoEstructuralId(parseInt(tipoEstructuralId));
+    return this.telaTipoEstructuralService.findTelasByTipoEstructuralId(
+      parseInt(tipoEstructuralId),
+    );
   }
 }

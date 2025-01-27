@@ -62,7 +62,7 @@ import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
           ConservacionEntity,
           EstructuraLigamentosEntity,
           AplicacionesEntity,
-          CacVisualEntity
+          CacVisualEntity,
         ],
         synchronize: true,
       }),
@@ -75,7 +75,7 @@ import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
       TipoEstructuralEntity,
       ConservacionEntity,
       EstructuraLigamentosEntity,
-      AplicacionesEntity
+      AplicacionesEntity,
     ]),
     FilesModule,
     ComposicionModule,
@@ -84,7 +84,7 @@ import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
     ConservacionModule,
     EstructuraLigamentosEntity,
     AplicacionesModule,
-    CacVisualesModule
+    CacVisualesModule,
   ],
   controllers: [],
   providers: [AuthorizationMiddleware, AuthService],

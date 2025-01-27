@@ -1,7 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CacVisualesService } from './cac_visuales.service';
 import { CreateCacVisualDto, UpdateCacVisualDto } from './cac_visuales.dto';
-
 
 @Controller('cac-visuales')
 export class CacVisualesController {
@@ -23,7 +30,10 @@ export class CacVisualesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCacVisualDto: UpdateCacVisualDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateCacVisualDto: UpdateCacVisualDto,
+  ) {
     return this.cacVisualesService.update(+id, updateCacVisualDto);
   }
 

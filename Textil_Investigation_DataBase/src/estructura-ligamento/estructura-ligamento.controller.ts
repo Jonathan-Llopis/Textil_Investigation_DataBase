@@ -8,7 +8,10 @@ import {
   Delete,
 } from '@nestjs/common';
 import { EstructuraService } from './estructura-ligamento.service';
-import { CreateEstructuraDto, UpdateEstructuraDto } from './estructura-ligamento.dto';
+import {
+  CreateEstructuraDto,
+  UpdateEstructuraDto,
+} from './estructura-ligamento.dto';
 
 @Controller('estructura')
 export class EstructuraController {
