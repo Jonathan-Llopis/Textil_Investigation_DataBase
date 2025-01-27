@@ -1,53 +1,53 @@
 export default [
   {
-    description: 'Vestidos de novia',
+    tipo_aplicacion: 'Vestidos de novia',
   },
   {
-    description: 'Lenceria',
+    tipo_aplicacion: 'Lenceria',
   },
   {
-    description: 'Blusas',
+    tipo_aplicacion: 'Blusas',
   },
   {
-    description: 'Sostiene Bordado',
+    tipo_aplicacion: 'Sostiene Bordado',
   },
   {
-    description: 'Forro',
+    tipo_aplicacion: 'Forro',
   },
   {
-    description: 'Bufandas',
+    tipo_aplicacion: 'Bufandas',
   },
   {
-    description: 'Saris',
+    tipo_aplicacion: 'Saris',
   },
   {
-    description: 'Revestimiento',
+    tipo_aplicacion: 'Revestimiento',
   },
   {
-    description: 'Decoracion',
+    tipo_aplicacion: 'Decoracion',
   },
   {
-    description: 'Pañuelos',
+    tipo_aplicacion: 'Pañuelos',
   },
   {
-    description: 'Faldas',
+    tipo_aplicacion: 'Faldas',
   },
   {
-    description: 'Vestidos fiesta',
+    tipo_aplicacion: 'Vestidos fiesta',
   },
   {
-    description: 'Medicina',
+    tipo_aplicacion: 'Medicina',
   },
   {
-    description: 'Refuerzo prendas',
+    tipo_aplicacion: 'Refuerzo prendas',
   },
   {
-    description: 'Ropa de verano',
+    tipo_aplicacion: 'Ropa de verano',
   },
   {
-    description: 'Decoración',
+    tipo_aplicacion: 'Decoración',
   },
   {
-    description: 'Ropa de bebe',
+    tipo_aplicacion: 'Ropa de bebe',
   },
 ];
