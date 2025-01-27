@@ -24,7 +24,7 @@ export class TelaTipoEstructuralService {
   ) {}
 
   async addTelaToTipoEstructural(createTelaDto: CreateTelaDto, id_tela: number): Promise<TelaEntity> {
-    const {id_tipo_estructural } = createTelaDto;
+    const { ids_tipo_estructural } = createTelaDto;
 
     const tela = await this.telaRepository.findOne({
       where: { id_tela },
@@ -34,15 +34,17 @@ export class TelaTipoEstructuralService {
       throw new NotFoundException('Tela no encontrada');
     }
 
-    const tipoEstructural = await this.tipoEstructuralRepository.findOne({
-      where: { id_tipo_estructural },
-      relations: ['telas'],
-    });
-    if (!tipoEstructural) {
-      throw new NotFoundException('Tipo Estructural no encontrado');
+    for (const tipoId of ids_tipo_estructural) {
+      const tipoEstructural = await this.tipoEstructuralRepository.findOne({
+        where: { id_tipo_estructural: tipoId },
+        relations: ['telas'],
+      });
+      if (!tipoEstructural) {
+        throw new NotFoundException(`Tipo Estructural con id ${tipoId} no encontrado`);
+      }
+      tela.tipo_estructurales.push(tipoEstructural);
     }
 
-    tela.tipo_estructurales.push(tipoEstructural);
     return this.telaRepository.save(tela);
   }
 
