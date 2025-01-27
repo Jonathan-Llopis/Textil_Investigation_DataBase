@@ -6,8 +6,14 @@ export class CacVisualEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'text' })
-  descripcion: string;
+  @Column()
+  transparencia: number;
+
+  @Column()
+  brillo: number;
+
+  @Column()
+  tacto: number;
 
   @ManyToMany(() => TelaEntity, (tela) => tela.caracteristicas_visuales)
   telas: TelaEntity[];
