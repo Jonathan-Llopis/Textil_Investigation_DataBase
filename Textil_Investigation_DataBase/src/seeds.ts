@@ -6,8 +6,6 @@ import { config } from 'dotenv';
 import { TelaEntity } from './tela/tela.entity';
 import { ConservacionEntity } from './conservacion/conservacion.entity';
 import { ConservacionSeeder } from './db/seeding/seeds/conservacion.seeds';
-import { CacTecnicasSeeder } from './db/seeding/seeds/cacTecnicas.seeds';
-import { Cac_TecnicasEntity } from './cac_tecnicas/cac_tecnicas.entity';
 import { ComposicionEntity } from './composicion/composicion.entity';
 import { TipoEstructuralEntity } from './tipo_estructural/tipo_estructural.entity';
 import { EstructuraLigamentosEntity } from './estructura-ligamento/estructura-ligamento.entity';
@@ -26,11 +24,10 @@ const options: DataSourceOptions & SeederOptions = {
   entities: [      TelaEntity,
         ComposicionEntity,
         TipoEstructuralEntity,
-        Cac_TecnicasEntity,
         ConservacionEntity,
         EstructuraLigamentosEntity,
         AplicacionesEntity],
-  seeds: [ConservacionSeeder, CacTecnicasSeeder],
+  seeds: [ConservacionSeeder],
 };
 
 const dataSource = new DataSource(options);
