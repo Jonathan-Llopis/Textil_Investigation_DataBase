@@ -2,7 +2,6 @@ import { IsArray, IsInt, IsOptional, IsString, Length } from 'class-validator';
 import { ArrayMaxSize } from 'class-validator';
 
 export class CreateTelaDto {
-  
   @IsString()
   @Length(1, 500)
   denominacion: string;

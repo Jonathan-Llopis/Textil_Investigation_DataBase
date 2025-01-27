@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { runSeeders, SeederOptions } from 'typeorm-extension';
-import { UserEntity } from './users/users.entity';
 import { config } from 'dotenv';
 import { TelaEntity } from './tela/tela.entity';
 import { ConservacionEntity } from './conservacion/conservacion.entity';
@@ -21,12 +20,14 @@ const options: DataSourceOptions & SeederOptions = {
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
 
-  entities: [      TelaEntity,
-        ComposicionEntity,
-        TipoEstructuralEntity,
-        ConservacionEntity,
-        EstructuraLigamentosEntity,
-        AplicacionesEntity],
+  entities: [
+    TelaEntity,
+    ComposicionEntity,
+    TipoEstructuralEntity,
+    ConservacionEntity,
+    EstructuraLigamentosEntity,
+    AplicacionesEntity,
+  ],
   seeds: [ConservacionSeeder],
 };
 

@@ -5,7 +5,9 @@ import { EstructuraLigamentosEntity } from 'src/estructura-ligamento/estructura-
 
 export class estructuraLigamentoSeeder implements Seeder {
   public async run(dataSource: DataSource): Promise<void> {
-    const estructuraLigamentoRepository = dataSource.getRepository(EstructuraLigamentosEntity);
+    const estructuraLigamentoRepository = dataSource.getRepository(
+      EstructuraLigamentosEntity,
+    );
 
     await estructuraLigamentoRepository.save(estructuraLigamentoData);
 
