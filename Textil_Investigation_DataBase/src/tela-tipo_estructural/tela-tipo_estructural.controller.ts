@@ -37,16 +37,16 @@ export class TelaTipoEstructuralController {
     @Param('id_tela') idTela: number,
     @Body() updateTelaTipoEstructuralDto: UpdateTelaDto,
   ) {
-    return this.telaTipoEstructuralService.updateTipoEstructural(
+    return this.telaTipoEstructuralService.updateTipoEstructuralesFromTela(
       idTela,
-      updateTelaTipoEstructuralDto,
+      updateTelaTipoEstructuralDto.ids_tipo_estructural,
     );
   }
 
   // Eliminar todos los TipoEstructural de una Tela
   @Delete(':id_tela')
   async removeAllTipoEstructural(@Param('id_tela') idTela: number) {
-    return this.telaTipoEstructuralService.removeAllTipoEstructural(idTela);
+    return this.telaTipoEstructuralService.removeAllTipoEstructuralesFromTela(idTela);
   }
 
   // Eliminar un TipoEstructural específico de una Tela
@@ -55,7 +55,7 @@ export class TelaTipoEstructuralController {
     @Param('id_tela') idTela: number,
     @Param('id_tipo_estructural') idTipoEstructural: number,
   ) {
-    return this.telaTipoEstructuralService.removeAllTipoEstructural(idTela);
+    return this.telaTipoEstructuralService.deleteTipoEstructuralFromTela(idTela, idTipoEstructural);
   }
 
   @Get('tipoestructural/:tipoEstructuralId/telas')
@@ -68,7 +68,7 @@ export class TelaTipoEstructuralController {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return this.telaTipoEstructuralService.findTelasByTipoEstructuralId(
+    return this.telaTipoEstructuralService.findTipoEstructuralFromTela(
       parseInt(tipoEstructuralId),
     );
   }
