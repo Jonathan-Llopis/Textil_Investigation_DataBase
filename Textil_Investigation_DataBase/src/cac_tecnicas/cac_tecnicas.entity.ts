@@ -13,7 +13,13 @@ export class Cac_TecnicasEntity {
   id: number;
 
   @Column()
-  description: string;
+  resistencia: number;
+
+  @Column()
+  absorcion: number;
+
+  @Column()
+  elasticidad: number;
 
   //Relación Many-to-Many con Características Técnicas
   @ManyToMany(() => TelaEntity, (telas) => telas.caracteristicas_tecnicas)
