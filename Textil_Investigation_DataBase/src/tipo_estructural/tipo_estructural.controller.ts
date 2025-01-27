@@ -19,7 +19,6 @@ export class TipoEstructuralController {
     private readonly tipoEstructuralService: TipoEstructuralService,
   ) {}
 
-  // Crear un nuevo tipo estructural
   @Post()
   async createTipoEstructural(
     @Body() createTipoEstructuralDto: CreateTipoEstructuralDto,
@@ -27,7 +26,6 @@ export class TipoEstructuralController {
     return this.tipoEstructuralService.create(createTipoEstructuralDto);
   }
 
-  // Obtener todos los tipos estructurales
   @Get()
   async getAllTipoEstructurales() {
     return this.tipoEstructuralService.findAll();

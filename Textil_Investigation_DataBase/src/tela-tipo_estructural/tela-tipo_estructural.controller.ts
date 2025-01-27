@@ -1,9 +1,7 @@
-import { Controller, Post, Put, Delete, Param, Body } from '@nestjs/common';
-import {
-  CreateTelaTipoEstructuralDto,
-  UpdateTelaTipoEstructuralDto,
-} from './tela-tipo_estructural.dto';
+import { Controller, Post, Put, Delete, Param, Body, Get, HttpException, HttpStatus } from '@nestjs/common';
 import { TelaTipoEstructuralService } from './tela-tipo_estructural.service';
+import { isEmpty } from 'class-validator';
+import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
 
 @Controller('tela-tipo-estructural')
 export class TelaTipoEstructuralController {
@@ -12,20 +10,21 @@ export class TelaTipoEstructuralController {
   ) {}
 
   // Agregar una nueva relación entre Tela y TipoEstructural
-  @Post()
+  @Post(':id')
   async addTipoEstructural(
-    @Body() createTelaTipoEstructuralDto: CreateTelaTipoEstructuralDto,
+    @Param('id') idTela: number,
+    @Body() createTelaTipoEstructuralDto: CreateTelaDto,
   ) {
-    return this.telaTipoEstructuralService.add(createTelaTipoEstructuralDto);
+    return this.telaTipoEstructuralService.addTelaToTipoEstructural(createTelaTipoEstructuralDto, idTela);
   }
 
   // Actualizar la relación de TipoEstructural de una Tela
   @Put(':id_tela')
   async updateTipoEstructural(
     @Param('id_tela') idTela: number,
-    @Body() updateTelaTipoEstructuralDto: UpdateTelaTipoEstructuralDto,
+    @Body() updateTelaTipoEstructuralDto: UpdateTelaDto,
   ) {
-    return this.telaTipoEstructuralService.update(
+    return this.telaTipoEstructuralService.updateTipoEstructural(
       idTela,
       updateTelaTipoEstructuralDto,
     );
@@ -34,7 +33,7 @@ export class TelaTipoEstructuralController {
   // Eliminar todos los TipoEstructural de una Tela
   @Delete(':id_tela')
   async removeAllTipoEstructural(@Param('id_tela') idTela: number) {
-    return this.telaTipoEstructuralService.removeAll(idTela);
+    return this.telaTipoEstructuralService.removeAllTipoEstructural(idTela);
   }
 
   // Eliminar un TipoEstructural específico de una Tela
@@ -43,6 +42,14 @@ export class TelaTipoEstructuralController {
     @Param('id_tela') idTela: number,
     @Param('id_tipo_estructural') idTipoEstructural: number,
   ) {
-    return this.telaTipoEstructuralService.remove(idTela, idTipoEstructural);
+    return this.telaTipoEstructuralService.removeAllTipoEstructural(idTela);
+  }
+
+  @Get('tipoestructural/:tipoEstructuralId/telas')
+  async findTelasByTipoEstructuralId(@Param('tipoEstructuralId') tipoEstructuralId: string) {
+    if (isEmpty(tipoEstructuralId)) {
+      throw new HttpException('Invalid tipo estructural ID', HttpStatus.BAD_REQUEST);
+    }
+    return this.telaTipoEstructuralService.findTelasByTipoEstructuralId(parseInt(tipoEstructuralId));
   }
 }

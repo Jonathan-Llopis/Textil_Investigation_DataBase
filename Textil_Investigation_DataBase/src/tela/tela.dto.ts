@@ -1,6 +1,7 @@
 import { IsOptional, IsString, Length } from 'class-validator';
 
 export class CreateTelaDto {
+  
   @IsString()
   @Length(1, 500)
   denominacion: string;

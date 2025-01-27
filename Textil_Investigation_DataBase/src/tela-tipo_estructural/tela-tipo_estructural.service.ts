@@ -3,87 +3,122 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TelaEntity } from '../tela/tela.entity';
 import { TipoEstructuralEntity } from 'src/tipo_estructural/tipo_estructural.entity';
-import { TelaTipoEstructuralEntity } from './tela-tipo_estructural.entity';
-import {
-  CreateTelaTipoEstructuralDto,
-  UpdateTelaTipoEstructuralDto,
-} from './tela-tipo_estructural.dto';
-
+import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
 @Injectable()
 export class TelaTipoEstructuralService {
+  findTelasByTipoEstructuralId(arg0: number) {
+    throw new Error('Method not implemented.');
+  }
+  removeAllTipoEstructural(idTela: number) {
+    throw new Error('Method not implemented.');
+  }
+  updateTipoEstructural(idTela: number, updateTelaTipoEstructuralDto: UpdateTelaDto) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
-    @InjectRepository(TelaTipoEstructuralEntity)
-    private readonly telaTipoEstructuralRepository: Repository<TelaTipoEstructuralEntity>,
     @InjectRepository(TelaEntity)
     private readonly telaRepository: Repository<TelaEntity>,
     @InjectRepository(TipoEstructuralEntity)
     private readonly tipoEstructuralRepository: Repository<TipoEstructuralEntity>,
+
   ) {}
 
-  // Agregar una nueva relación entre Tela y TipoEstructural
-  async add(
-    createTelaTipoEstructuralDto: CreateTelaTipoEstructuralDto,
-  ): Promise<TelaTipoEstructuralEntity> {
-    const { id_tela, id_tipo_estructural } = createTelaTipoEstructuralDto;
+  async addTelaToTipoEstructural(createTelaDto: CreateTelaDto, id_tela: number): Promise<TelaEntity> {
+    const {id_tipo_estructural } = createTelaDto;
 
-    // Buscar la tela y el tipo estructural
     const tela = await this.telaRepository.findOne({
-      where: { id_tela: id_tela },
+      where: { id_tela },
+      relations: ['tipo_estructural'],
     });
+    if (!tela) {
+      throw new NotFoundException('Tela no encontrada');
+    }
+
     const tipoEstructural = await this.tipoEstructuralRepository.findOne({
-      where: { id_tipo_estructural: id_tipo_estructural },
+      where: { id_tipo_estructural },
+      relations: ['telas'],
     });
-
-    if (!tela || !tipoEstructural) {
-      throw new NotFoundException('Tela o Tipo Estructural no encontrado');
-    }
-
-    const telaTipoEstructural = this.telaTipoEstructuralRepository.create({
-      tela,
-      tipo_estructural: tipoEstructural,
-    });
-
-    return this.telaTipoEstructuralRepository.save(telaTipoEstructural);
-  }
-
-  // Actualizar la relación entre Tela y TipoEstructural
-  async update(
-    idTela: number,
-    updateTelaTipoEstructuralDto: UpdateTelaTipoEstructuralDto,
-  ): Promise<TelaTipoEstructuralEntity> {
-    const tipoEstructural = await this.telaTipoEstructuralRepository.findOne({
-      where: { tela: { id_tela: idTela } },
-    });
-
     if (!tipoEstructural) {
-      throw new NotFoundException('Relación no encontrada');
+      throw new NotFoundException('Tipo Estructural no encontrado');
     }
 
-    // Actualizamos la relación con los nuevos valores
-    Object.assign(tipoEstructural, updateTelaTipoEstructuralDto);
-
-    return this.telaTipoEstructuralRepository.save(tipoEstructural);
+    tela.tipo_estructurales.push(tipoEstructural);
+    return this.telaRepository.save(tela);
   }
 
-  // Eliminar todos los TipoEstructural de una Tela
-  async removeAll(idTela: number): Promise<void> {
-    const result = await this.telaTipoEstructuralRepository.delete({
-      tela: { id_tela: idTela },
+  async findTipoEstructuralFromTela(id_tela: number, id_tipo_estructural: number): Promise<TipoEstructuralEntity> {
+    const tela = await this.telaRepository.findOne({
+      where: { id_tela },
+      relations: ['tipo_estructural'],
     });
-    if (result.affected === 0) {
-      throw new NotFoundException('No se encontraron relaciones para eliminar');
+    if (!tela) {
+      throw new NotFoundException('Tela no encontrada');
     }
+
+    const tipoEstructural = tela.tipo_estructurales.find(
+      (tipo) => tipo.id_tipo_estructural === id_tipo_estructural,
+    );
+    if (!tipoEstructural) {
+      throw new NotFoundException('Tipo Estructural no encontrado en la Tela');
+    }
+
+    return tipoEstructural;
   }
 
-  // Eliminar un TipoEstructural específico de una Tela
-  async remove(idTela: number, idTipoEstructural: number): Promise<void> {
-    const result = await this.telaTipoEstructuralRepository.delete({
-      tela: { id_tela: idTela },
-      tipo_estructural: { id_tipo_estructural: idTipoEstructural },
+  async findTipoEstructuralesFromTela(id_tela: number): Promise<TipoEstructuralEntity[]> {
+    const tela = await this.telaRepository.findOne({
+      where: { id_tela },
+      relations: ['tipo_estructural'],
     });
-
-    if (result.affected === 0) {
-      throw new NotFoundException('Relación no encontrada para eliminar');
+    if (!tela) {
+      throw new NotFoundException('Tela no encontrada');
     }
+
+    return tela.tipo_estructurales;
+  }
+
+  async updateTipoEstructuralesFromTela(id_tela: number, tipoEstructurales: TipoEstructuralEntity[]): Promise<TelaEntity> {
+    const tela = await this.telaRepository.findOne({
+      where: { id_tela },
+      relations: ['tipo_estructural'],
+    });
+    if (!tela) {
+      throw new NotFoundException('Tela no encontrada');
+    }
+
+    for (const tipoEstructural of tipoEstructurales) {
+      const tipo = await this.tipoEstructuralRepository.findOne({
+        where: { id_tipo_estructural: tipoEstructural.id_tipo_estructural },
+        relations: ['telas'],
+      });
+      if (!tipo) {
+        throw new NotFoundException('Tipo Estructural no encontrado');
+      }
+    }
+
+    tela.tipo_estructurales = tipoEstructurales;
+    return this.telaRepository.save(tela);
+  }
+
+  async deleteTipoEstructuralFromTela(id_tela: number, id_tipo_estructural: number): Promise<void> {
+    const tela = await this.telaRepository.findOne({
+      where: { id_tela },
+      relations: ['tipo_estructural'],
+    });
+    if (!tela) {
+      throw new NotFoundException('Tela no encontrada');
+    }
+
+    const tipoEstructural = tela.tipo_estructurales.find(
+      (tipo) => tipo.id_tipo_estructural === id_tipo_estructural,
+    );
+    if (!tipoEstructural) {
+      throw new NotFoundException('Tipo Estructural no encontrado en la Tela');
+    }
+
+    tela.tipo_estructurales = tela.tipo_estructurales.filter(
+      (tipo) => tipo.id_tipo_estructural !== id_tipo_estructural,
+    );
+    await this.telaRepository.save(tela);
   }
 }
