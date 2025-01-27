@@ -1,8 +1,15 @@
 import { IsString, IsInt, IsOptional, IsNotEmpty } from 'class-validator';
 
 export class CreateCacTecnicaDto {
-  @IsString()
-  description: string;
+
+  @IsInt()
+  resistencia: number;
+
+  @IsInt()
+  absorcion: number;
+
+  @IsInt()
+  elasticidad: number;
 
   @IsInt()
   @IsNotEmpty()
@@ -10,9 +17,18 @@ export class CreateCacTecnicaDto {
 }
 
 export class UpdateCacTecnicaDto {
+
   @IsOptional()
-  @IsString()
-  description?: string;
+  @IsInt()
+  resistencia?: number;
+
+  @IsOptional()
+  @IsInt()
+  absorcion?: number;
+
+  @IsOptional()
+  @IsInt()
+  elasticidad?: number;
 
   @IsOptional()
   @IsInt()
