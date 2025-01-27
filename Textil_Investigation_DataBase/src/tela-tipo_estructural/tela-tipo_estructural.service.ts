@@ -24,7 +24,7 @@ export class TelaTipoEstructuralService {
   ) {}
 
   async addTelaToTipoEstructural(createTelaDto: CreateTelaDto, id_tela: number): Promise<TelaEntity> {
-    const {id_tipo_estructural } = createTelaDto;
+    const {ids_tipo_estructural } = createTelaDto;
 
     const tela = await this.telaRepository.findOne({
       where: { id_tela },
@@ -35,7 +35,7 @@ export class TelaTipoEstructuralService {
     }
 
     const tipoEstructural = await this.tipoEstructuralRepository.findOne({
-      where: { id_tipo_estructural },
+      where: {id_tipo_estructural: ids_tipo_estructural },
       relations: ['telas'],
     });
     if (!tipoEstructural) {

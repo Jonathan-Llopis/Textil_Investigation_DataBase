@@ -15,6 +15,6 @@ export class CacVisualEntity {
   @Column()
   tacto: number;
 
-  @ManyToMany(() => TelaEntity, (tela) => tela.cac_visuales)
+  @ManyToMany(() => TelaEntity, (tela) => tela.caracteristicas_visuales)
   telas: TelaEntity[];
 }
