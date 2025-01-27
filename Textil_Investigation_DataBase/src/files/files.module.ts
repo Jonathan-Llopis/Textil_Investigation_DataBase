@@ -17,10 +17,6 @@ import { UserEntity } from '../users/users.entity';
     TypeOrmModule.forFeature([UserEntity]),
   ],
   controllers: [FilesController],
-  providers: [
-    GridFsMulterConfigService,
-    FilesService,
-    UsersService,
-  ],
+  providers: [GridFsMulterConfigService, FilesService, UsersService],
 })
 export class FilesModule {}

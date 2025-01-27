@@ -1,5 +1,11 @@
 import { TelaEntity } from 'src/tela/tela.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 
 @Entity()
 export class ComposicionEntity {

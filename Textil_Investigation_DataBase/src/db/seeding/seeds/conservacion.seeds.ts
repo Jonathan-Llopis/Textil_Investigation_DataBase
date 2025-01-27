@@ -9,8 +9,6 @@ export class ConservacionSeeder implements Seeder {
 
     await coservacionRepository.save(conversacionData);
 
-    console.log(
-      'Datos de conservacion insertados',
-    );
+    console.log('Datos de conservacion insertados');
   }
 }

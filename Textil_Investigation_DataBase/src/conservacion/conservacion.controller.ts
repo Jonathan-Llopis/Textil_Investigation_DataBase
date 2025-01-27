@@ -11,7 +11,10 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ConservacionService } from './conservacion.service';
-import { CreateConservacionDto, UpdateConservacionDto } from './conservacion.dto';
+import {
+  CreateConservacionDto,
+  UpdateConservacionDto,
+} from './conservacion.dto';
 
 @Controller('conservaciones')
 export class ConservacionController {
@@ -52,7 +55,9 @@ export class ConservacionController {
   }
 
   @Post()
-  async createConservacion(@Body() createConservacionDto: CreateConservacionDto) {
+  async createConservacion(
+    @Body() createConservacionDto: CreateConservacionDto,
+  ) {
     return this.conservacionService.createConservacion(createConservacionDto);
   }
 

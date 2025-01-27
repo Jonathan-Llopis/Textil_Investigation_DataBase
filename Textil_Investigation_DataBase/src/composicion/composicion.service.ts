@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ComposicionEntity } from './composicion.entity';
-import { CreateComposicionDto } from './dtos/create.dto';
-import { UpdateComposicionDto } from './dtos/update.dto';
+import { CreateComposicionDto, UpdateComposicionDto } from './composicion.dto';
 
 @Injectable()
 export class ComposicionService {

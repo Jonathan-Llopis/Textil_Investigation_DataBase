@@ -1,14 +1,5 @@
 // user.dto.ts
-import {
-  IsEmail,
-  IsString,
-  IsOptional,
-  IsInt,
-  Min,
-  Max,
-  Length,
-  IsArray,
-} from 'class-validator';
+import { IsEmail, IsString, IsOptional, Length } from 'class-validator';
 export class CreateUserDto {
   @IsOptional()
   @IsString()
@@ -40,7 +31,6 @@ export class UpdateUserDto {
   @IsString()
   @Length(1, 500)
   password: string;
-
 
   @IsEmail()
   @IsOptional()
