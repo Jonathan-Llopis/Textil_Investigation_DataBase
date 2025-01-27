@@ -51,7 +51,10 @@ export class TelaEntity {
   caracteristicas_tecnicas: Cac_TecnicasEntity[];
 
   // // Relación Many-to-Many con Características Visuales
-  @ManyToMany(() => CacVisualEntity, (caracteristicas_visuales) => caracteristicas_visuales.telas)
+  @ManyToMany(
+    () => CacVisualEntity,
+    (caracteristicas_visuales) => caracteristicas_visuales.telas,
+  )
   @JoinTable()
   caracteristicas_visuales: CacVisualEntity[];
 
