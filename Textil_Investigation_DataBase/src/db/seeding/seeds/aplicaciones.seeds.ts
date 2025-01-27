@@ -1,4 +1,4 @@
-import { AplicacionesEntity } from 'src/aplicaciones/aplicaciones.enttity';
+import { AplicacionesEntity } from 'src/aplicaciones/aplicaciones.entity';
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
 import aplicacionesData from '../../../data/aplicaciones';
