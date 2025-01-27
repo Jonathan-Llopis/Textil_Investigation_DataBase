@@ -1,11 +1,11 @@
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
 import estructuraLigamentoData from '../../../data/estructura-ligamento';
-import { Cac_TecnicasEntity } from '../../../cac_tecnicas/cac_tecnicas.entity';
+import { EstructuraLigamentosEntity } from 'src/estructura-ligamento/estructura-ligamento.entity';
 
 export class estructuraLigamentoSeeder implements Seeder {
   public async run(dataSource: DataSource): Promise<void> {
-    const estructuraLigamentoRepository = dataSource.getRepository(Cac_TecnicasEntity);
+    const estructuraLigamentoRepository = dataSource.getRepository(EstructuraLigamentosEntity);
 
     await estructuraLigamentoRepository.save(estructuraLigamentoData);
 

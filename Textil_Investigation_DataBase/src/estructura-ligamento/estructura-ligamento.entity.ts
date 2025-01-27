@@ -9,9 +9,6 @@ export class EstructuraLigamentosEntity {
   @Column({ type: 'text' })
   descripcion: string;
 
-  @Column({ type: 'text', nullable: true })
-  detalle: string;
-
   @ManyToMany(() => TelaEntity, (tela) => tela.tipo_estructurales)
   telas: TelaEntity[];
 }
