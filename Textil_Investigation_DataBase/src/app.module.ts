@@ -73,7 +73,6 @@ import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
       TelaEntity,
       ComposicionEntity,
       TipoEstructuralEntity,
-      Cac_TecnicasEntity,
       ConservacionEntity,
       EstructuraLigamentosEntity,
       AplicacionesEntity
