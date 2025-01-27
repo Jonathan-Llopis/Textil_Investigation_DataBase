@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
-import cacTecnicasData from '../../../data/conservacion';
+import cacTecnicasData from '../../../data/cacTecnicas';
 import { Cac_TecnicasEntity } from '../../../cac_tecnicas/cac_tecnicas.entity';
 
 export class CacTecnicasSeeder implements Seeder {
