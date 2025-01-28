@@ -1,4 +1,4 @@
-import { AplicacionesEntity } from 'src/aplicaciones/aplicaciones.enttity';
+import { AplicacionesEntity } from 'src/aplicaciones/aplicaciones.entity';
 import { Cac_TecnicasEntity } from 'src/cac_tecnicas/cac_tecnicas.entity';
 import { CacVisualEntity } from 'src/cac_visuales/cac_visuales.entity';
 import { ComposicionEntity } from 'src/composicion/composicion.entity';

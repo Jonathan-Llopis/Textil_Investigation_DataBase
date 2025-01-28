@@ -24,7 +24,7 @@ import { ComposicionModule } from './composicion/composicion.module';
 import { TipoEstructuralModule } from './tipo_estructural/tipo_estructural.module';
 import { CacTecnicasModule } from './cac_tecnicas/cac_tecnicas.module';
 import { ConservacionModule } from './conservacion/conservacion.module';
-import { AplicacionesEntity } from './aplicaciones/aplicaciones.enttity';
+import { AplicacionesEntity } from './aplicaciones/aplicaciones.entity';
 import { AplicacionesModule } from './aplicaciones/aplicaciones.module';
 import { CacVisualEntity } from './cac_visuales/cac_visuales.entity';
 import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
