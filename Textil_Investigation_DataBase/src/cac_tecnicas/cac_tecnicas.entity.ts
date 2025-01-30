@@ -21,7 +21,6 @@ export class Cac_TecnicasEntity {
   @Column()
   elasticidad: number;
 
-  //Relación Many-to-Many con Características Técnicas
   @ManyToMany(() => TelaEntity, (telas) => telas.caracteristicas_tecnicas)
   @JoinTable()
   telas: TelaEntity[];
