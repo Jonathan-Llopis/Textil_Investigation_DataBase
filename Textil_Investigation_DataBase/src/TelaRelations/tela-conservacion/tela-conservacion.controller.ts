@@ -10,7 +10,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { isEmpty } from 'class-validator';
-import { TelaConservacionService } from './tela-composicion.service';
+import { TelaConservacionService } from './tela-conservacion.service';
 
 @Controller('tela-conservacion')
 export class TelaConservacionController {
