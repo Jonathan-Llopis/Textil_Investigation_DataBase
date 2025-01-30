@@ -4,7 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 @Entity()
 export class Cac_VisualEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id_cac_visual: number;
 
   @Column()
   transparencia: number;

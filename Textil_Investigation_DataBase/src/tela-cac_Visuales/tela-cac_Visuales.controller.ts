@@ -39,7 +39,7 @@ export class TelaTipoCac_VisualesController {
   ) {
     return this.telaTipoCac_VisualesService.updateCacVisualesFromTela(
       idTela,
-      updateTelaCacVisualesDto
+      updateTelaCacVisualesDto.ids_cac_visuales,
 
     );
   }
@@ -56,7 +56,7 @@ export class TelaTipoCac_VisualesController {
     @Param('id_tela') idTela: number,
     @Param('id_cac_visual') idCacVisual: number,
   ) {
-    return this.telaTipoCac_VisualesService.removeCacVisual(
+    return this.telaTipoCac_VisualesService.deleteCacVisualFromTela(
       idTela,
       idCacVisual,
     );
@@ -70,7 +70,7 @@ export class TelaTipoCac_VisualesController {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return this.telaTipoCac_VisualesService.findCacVisualesFromTela(
+    return this.telaTipoCac_VisualesService.findTelasByCacVisuales(
       parseInt(cacVisualId),
     );
   }

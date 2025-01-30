@@ -3,15 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TelaEntity } from '../tela/tela.entity';
 import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
-import { CacVisualEntity } from 'src/cac_visuales/cac_visuales.entity';
+import { Cac_VisualEntity } from '../cac_visuales/cac_visuales.entity';
 
 @Injectable()
 export class TelaTipoCac_VisualesService {
   constructor(
     @InjectRepository(TelaEntity)
     private readonly telaRepository: Repository<TelaEntity>,
-    @InjectRepository(CacVisualEntity)
-    private readonly cacVisualesRepository: Repository<CacVisualEntity>,
+    @InjectRepository(Cac_VisualEntity)
+    private readonly cacVisualesRepository: Repository<Cac_VisualEntity>,
   ) {}
 
   async addTelaToCacVisuales(
@@ -30,7 +30,7 @@ export class TelaTipoCac_VisualesService {
 
     for (const visualId of ids_cac_visuales) {
       const cacVisual = await this.cacVisualesRepository.findOne({
-        where: { id: visualId },
+        where: { id_cac_visual: visualId },
         relations: ['telas'],
       });
       if (!cacVisual) {
@@ -43,44 +43,37 @@ export class TelaTipoCac_VisualesService {
   }
 
   async findTelasByCacVisuales(
-    searchCriteria: Partial<CacVisualEntity>,
+    id_cac_visual: string,  
   ): Promise<TelaEntity[]> {
     const cacVisuales = await this.cacVisualesRepository.find({
-      where: searchCriteria,
+      where: { id_cac_visual },
       relations: ['telas'],
     });
-  
-    if (cacVisuales.length === 0) {
-      throw new NotFoundException(
-        'No se encontraron características visuales con los criterios especificados',
-      );
+
+    if (!cacVisuales) {
+      throw new NotFoundException('Caracteristicas Visuales no encontradas');
     }
-  
-    const telas = cacVisuales.flatMap((visual) => visual.telas);
-  
-    if (telas.length === 0) {
-      throw new NotFoundException('No se encontraron Telas relacionadas');
-    }
-  
-    return Array.from(new Set(telas)); // Elimina duplicados en caso de Telas compartidas por múltiples CacVisuales
+
+    return cacVisuales.telas;
   }
   
 
   async updateCacVisualesFromTela(
     id_tela: number,
-    cacVisuales: CacVisualEntity[],
+    cacVisuales: number[],
   ): Promise<TelaEntity> {
     const tela = await this.telaRepository.findOne({
-      where: { id_tela: id_tela },
+      where: { id_tela},
       relations: ['cac_visuales'],
     });
     if (!tela) {
       throw new NotFoundException('Tela no encontrada');
     }
 
+    const nuevasCacVisuales = [];
     for (const cacVisual of cacVisuales) {
       const visual = await this.cacVisualesRepository.findOne({
-        where: { id: cacVisual.id },
+        where: { id_cac_visual: cacVisual },
         relations: ['telas'],
       });
       if (!visual) {
@@ -88,7 +81,7 @@ export class TelaTipoCac_VisualesService {
       }
     }
 
-    tela.caracteristicas_visuales = cacVisuales;
+    tela.caracteristicas_visuales = nuevasCacVisuales;
     return this.telaRepository.save(tela);
   }
 
@@ -118,14 +111,14 @@ export class TelaTipoCac_VisualesService {
     }
 
     const cacVisual = tela.caracteristicas_visuales.find(
-      (visual) => visual.id === id_cac_visual,
+      (visual) => visual.id_cac_visual === id_cac_visual,
     );
     if (!cacVisual) {
       throw new NotFoundException('Cac Visual no encontrado en la Tela');
     }
 
     tela.caracteristicas_visuales = tela.caracteristicas_visuales.filter(
-      (visual) => visual.id !== id_cac_visual,
+      (visual) => visual.id_cac_visual !== id_cac_visual,
     );
     await this.telaRepository.save(tela);
   }
