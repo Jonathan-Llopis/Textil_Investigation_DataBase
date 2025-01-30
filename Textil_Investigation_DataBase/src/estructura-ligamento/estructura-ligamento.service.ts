@@ -3,19 +3,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EstructuraLigamentosEntity } from './estructura-ligamento.entity';
 import {
-  CreateEstructuraDto,
-  UpdateEstructuraDto,
+  CreateEstructuraLigamentosDto,
+  UpdateEstructuraLigamentosDto,
 } from './estructura-ligamento.dto';
 
 @Injectable()
-export class EstructuraService {
+export class EstructuraLigamentosService {
   constructor(
     @InjectRepository(EstructuraLigamentosEntity)
     private readonly estructuraRepository: Repository<EstructuraLigamentosEntity>,
   ) {}
 
-  create(createEstructuraDto: CreateEstructuraDto) {
-    const estructura = this.estructuraRepository.create(createEstructuraDto);
+  create(createEstructuraLigamentosDto: CreateEstructuraLigamentosDto) {
+    const estructura = this.estructuraRepository.create(createEstructuraLigamentosDto);
     return this.estructuraRepository.save(estructura);
   }
 
@@ -27,8 +27,8 @@ export class EstructuraService {
     return this.estructuraRepository.findOneBy({ id });
   }
 
-  update(id: number, updateEstructuraDto: UpdateEstructuraDto) {
-    return this.estructuraRepository.update(id, updateEstructuraDto);
+  update(id: number, updateEstructuraLigamentosDto: UpdateEstructuraLigamentosDto) {
+    return this.estructuraRepository.update(id, updateEstructuraLigamentosDto);
   }
 
   remove(id: number) {
