@@ -15,7 +15,9 @@ import {
 
 @Controller('estructura')
 export class EstructuraLigamentosController {
-  constructor(private readonly estructuraService: EstructuraLigamentosService) {}
+  constructor(
+    private readonly estructuraService: EstructuraLigamentosService,
+  ) {}
 
   @Post()
   create(@Body() createEstructuraLigamentosDto: CreateEstructuraLigamentosDto) {

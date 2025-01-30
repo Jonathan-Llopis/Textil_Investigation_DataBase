@@ -57,7 +57,9 @@ export class TelaCacTecnicasService {
       .getOne();
 
     if (!tela) {
-      throw new NotFoundException('Tela no encontrada con las características técnicas proporcionadas');
+      throw new NotFoundException(
+        'Tela no encontrada con las características técnicas proporcionadas',
+      );
     }
 
     return tela;

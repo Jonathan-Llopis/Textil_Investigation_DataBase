@@ -1,12 +1,23 @@
-import { Controller, Post, Put, Delete, Param, Body, HttpException, Get, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  HttpException,
+  Get,
+  HttpStatus,
+} from '@nestjs/common';
 import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
 import { TelaCacTecnicasService } from './tela-cac_tecnicas.service';
 import { isEmpty } from 'class-validator/types/decorator/common/IsEmpty';
 
-
 @Controller('tela-cac_tecnicas')
 export class TelaCacTecnicasController {
-  constructor(private readonly telaCacTecnicasService: TelaCacTecnicasService) { }
+  constructor(
+    private readonly telaCacTecnicasService: TelaCacTecnicasService,
+  ) {}
 
   @Get('cac_tecnicas/:cacTecnicasId/telas')
   async findTelasByCacTecnicasId(
@@ -18,7 +29,7 @@ export class TelaCacTecnicasController {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const ids = cacTecnicasId.split('-').map(id => parseInt(id));
+    const ids = cacTecnicasId.split('-').map((id) => parseInt(id));
     if (ids.length !== 3) {
       throw new HttpException(
         'Exactly three IDs must be provided',
@@ -53,9 +64,7 @@ export class TelaCacTecnicasController {
 
   @Delete(':id_tela')
   async removeAllCacTecnicas(@Param('id_tela') idTela: number) {
-    return this.telaCacTecnicasService.removeAllCacTecnicasFromTela(
-      idTela,
-    );
+    return this.telaCacTecnicasService.removeAllCacTecnicasFromTela(idTela);
   }
 
   @Delete(':id_tela/:id_cac_tecnicas')
