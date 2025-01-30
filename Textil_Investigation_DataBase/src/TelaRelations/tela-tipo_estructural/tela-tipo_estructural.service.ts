@@ -1,12 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TelaEntity } from '../tela/tela.entity';
+import { TelaEntity } from '../../tela/tela.entity';
 import { TipoEstructuralEntity } from 'src/tipo_estructural/tipo_estructural.entity';
-import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
+import { CreateTelaDto } from 'src/tela/tela.dto';
 @Injectable()
 export class TelaTipoEstructuralService {
-
   constructor(
     @InjectRepository(TelaEntity)
     private readonly telaRepository: Repository<TelaEntity>,
@@ -44,7 +43,7 @@ export class TelaTipoEstructuralService {
     return this.telaRepository.save(tela);
   }
 
-  async findTipoEstructuralFromTela(
+  async findTelaFromTipoEstructural(
     id_tipo_estructural: number,
   ): Promise<TelaEntity[]> {
     const tipoEstructural = await this.tipoEstructuralRepository.findOne({
@@ -76,7 +75,9 @@ export class TelaTipoEstructuralService {
         relations: ['telas'],
       });
       if (!tipo) {
-        throw new NotFoundException(`Tipo Estructural con id ${tipoId} no encontrado`);
+        throw new NotFoundException(
+          `Tipo Estructural con id ${tipoId} no encontrado`,
+        );
       }
       nuevosTiposEstructurales.push(tipo);
     }

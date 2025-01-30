@@ -7,19 +7,19 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { EstructuraService } from './estructura-ligamento.service';
+import { EstructuraLigamentosService } from './estructura-ligamento.service';
 import {
-  CreateEstructuraDto,
-  UpdateEstructuraDto,
+  CreateEstructuraLigamentosDto,
+  UpdateEstructuraLigamentosDto,
 } from './estructura-ligamento.dto';
 
 @Controller('estructura')
-export class EstructuraController {
-  constructor(private readonly estructuraService: EstructuraService) {}
+export class EstructuraLigamentosController {
+  constructor(private readonly estructuraService: EstructuraLigamentosService) {}
 
   @Post()
-  create(@Body() createEstructuraDto: CreateEstructuraDto) {
-    return this.estructuraService.create(createEstructuraDto);
+  create(@Body() createEstructuraLigamentosDto: CreateEstructuraLigamentosDto) {
+    return this.estructuraService.create(createEstructuraLigamentosDto);
   }
 
   @Get()
@@ -35,9 +35,9 @@ export class EstructuraController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateEstructuraDto: UpdateEstructuraDto,
+    @Body() updateEstructuraLigamentosDto: UpdateEstructuraLigamentosDto,
   ) {
-    return this.estructuraService.update(+id, updateEstructuraDto);
+    return this.estructuraService.update(+id, updateEstructuraLigamentosDto);
   }
 
   @Delete(':id')

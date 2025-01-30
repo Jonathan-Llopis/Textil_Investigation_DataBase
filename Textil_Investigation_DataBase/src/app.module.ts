@@ -24,10 +24,11 @@ import { ComposicionModule } from './composicion/composicion.module';
 import { TipoEstructuralModule } from './tipo_estructural/tipo_estructural.module';
 import { CacTecnicasModule } from './cac_tecnicas/cac_tecnicas.module';
 import { ConservacionModule } from './conservacion/conservacion.module';
-import { AplicacionesEntity } from './aplicaciones/aplicaciones.enttity';
+import { AplicacionesEntity } from './aplicaciones/aplicaciones.entity';
 import { AplicacionesModule } from './aplicaciones/aplicaciones.module';
-import { CacVisualEntity } from './cac_visuales/cac_visuales.entity';
+import { Cac_VisualEntity } from './cac_visuales/cac_visuales.entity';
 import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
+import { EstructuraLigamentosModule } from './estructura-ligamento/estructura-ligamento.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -38,9 +39,17 @@ import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
       }),
       inject: [ConfigService],
     }),
+    AplicacionesModule,
+    CacTecnicasModule,
+    CacVisualesModule,
+    ComposicionModule,
+    ConservacionModule,
+    EstructuraLigamentosModule,
+    TelaModule,
+    TipoEstructuralModule,
     UsersModule,
     UtilsModule,
-    TelaModule,
+    FilesModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -54,37 +63,31 @@ import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
         password: configService.get('MYSQL_PASSWORD'),
         database: configService.get('MYSQL_DATABASE'),
         entities: [
-          UserEntity,
-          TelaEntity,
-          ComposicionEntity,
-          TipoEstructuralEntity,
+          AplicacionesEntity,
           Cac_TecnicasEntity,
+          Cac_VisualEntity,
+          ComposicionEntity,
           ConservacionEntity,
           EstructuraLigamentosEntity,
-          AplicacionesEntity,
-          CacVisualEntity,
+          TelaEntity,
+          TipoEstructuralEntity,
+          UserEntity,
         ],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([
-      UserEntity,
-      TelaEntity,
+      AplicacionesEntity,
+      Cac_TecnicasEntity,
+      Cac_VisualEntity,
       ComposicionEntity,
-      TipoEstructuralEntity,
       ConservacionEntity,
       EstructuraLigamentosEntity,
-      AplicacionesEntity,
+      TelaEntity,
+      TipoEstructuralEntity,
+      UserEntity,
     ]),
-    FilesModule,
-    ComposicionModule,
-    TipoEstructuralModule,
-    CacTecnicasModule,
-    ConservacionModule,
-    EstructuraLigamentosEntity,
-    AplicacionesModule,
-    CacVisualesModule,
   ],
   controllers: [],
   providers: [AuthorizationMiddleware, AuthService],

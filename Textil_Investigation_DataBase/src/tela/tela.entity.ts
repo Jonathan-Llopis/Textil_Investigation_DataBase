@@ -1,6 +1,6 @@
-import { AplicacionesEntity } from 'src/aplicaciones/aplicaciones.enttity';
+import { AplicacionesEntity } from 'src/aplicaciones/aplicaciones.entity';
 import { Cac_TecnicasEntity } from 'src/cac_tecnicas/cac_tecnicas.entity';
-import { CacVisualEntity } from 'src/cac_visuales/cac_visuales.entity';
+import { Cac_VisualEntity } from 'src/cac_visuales/cac_visuales.entity';
 import { ComposicionEntity } from 'src/composicion/composicion.entity';
 import { ConservacionEntity } from 'src/conservacion/conservacion.entity';
 import { EstructuraLigamentosEntity } from 'src/estructura-ligamento/estructura-ligamento.entity';
@@ -52,11 +52,11 @@ export class TelaEntity {
 
   // // Relación Many-to-Many con Características Visuales
   @ManyToMany(
-    () => CacVisualEntity,
+    () => Cac_VisualEntity,
     (caracteristicas_visuales) => caracteristicas_visuales.telas,
   )
   @JoinTable()
-  caracteristicas_visuales: CacVisualEntity[];
+  caracteristicas_visuales: Cac_VisualEntity[];
 
   // Relación Many-to-Many con Conservación
   @ManyToMany(() => ConservacionEntity, (conservacion) => conservacion.telas)
