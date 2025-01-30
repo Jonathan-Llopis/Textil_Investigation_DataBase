@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TelaEntity } from '../../tela/tela.entity';
-import { CreateTelaDto } from '../tela/tela.dto';
+import { CreateTelaDto } from '../../tela/tela.dto';
 import { Cac_VisualEntity } from '../../cac_visuales/cac_visuales.entity';
 
 @Injectable()

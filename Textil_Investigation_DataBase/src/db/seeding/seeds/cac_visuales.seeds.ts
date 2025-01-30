@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
-import { Cac_VisualEntity } from 'src/cac_visuales/cac_visuales.entity';
+import { Cac_VisualEntity } from '../../../cac_visuales/cac_visuales.entity';
 import cacVisualesData from '../../../data/cac_visuales';
 
 export class CacVisualesSeeder implements Seeder {

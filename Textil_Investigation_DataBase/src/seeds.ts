@@ -16,6 +16,8 @@ import { AplicacionesSeeder } from './db/seeding/seeds/aplicaciones.seeds';
 import { ComposicionSeeder } from './db/seeding/seeds/composicion.seeds';
 import { TipoEstructuralSeeder } from './db/seeding/seeds/tipo_estructural.seeds';
 import { EstructuraLigamentoSeeder } from './db/seeding/seeds/estructura-ligamento.seeds';
+import { CacVisualesSeeder } from './db/seeding/seeds/cac_visuales.seeds';
+import { CacTecnicasSeeder } from './db/seeding/seeds/cac_tecnicas.seeds';
 
 config();
 
@@ -44,6 +46,8 @@ const options: DataSourceOptions & SeederOptions = {
        ConservacionSeeder,
        EstructuraLigamentoSeeder,
        TipoEstructuralSeeder,
+       CacTecnicasSeeder,
+       CacVisualesSeeder
   ],
 };
 
