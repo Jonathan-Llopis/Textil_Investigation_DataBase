@@ -39,9 +39,7 @@ export class TelaAplicacionesService {
     return this.telaRepository.save(tela);
   }
 
-  async findTelasByAplicacion(
-    id_aplicaciones: number,
-  ): Promise<TelaEntity[]> {
+  async findTelasByAplicacion(id_aplicaciones: number): Promise<TelaEntity[]> {
     const aplicacion = await this.aplicacionesRepository.findOne({
       where: { id_aplicaciones },
       relations: ['telas'],

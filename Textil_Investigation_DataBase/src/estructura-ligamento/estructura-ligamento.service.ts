@@ -15,7 +15,9 @@ export class EstructuraLigamentosService {
   ) {}
 
   create(createEstructuraLigamentosDto: CreateEstructuraLigamentosDto) {
-    const estructura = this.estructuraRepository.create(createEstructuraLigamentosDto);
+    const estructura = this.estructuraRepository.create(
+      createEstructuraLigamentosDto,
+    );
     return this.estructuraRepository.save(estructura);
   }
 
@@ -27,7 +29,10 @@ export class EstructuraLigamentosService {
     return this.estructuraRepository.findOneBy({ id });
   }
 
-  update(id: number, updateEstructuraLigamentosDto: UpdateEstructuraLigamentosDto) {
+  update(
+    id: number,
+    updateEstructuraLigamentosDto: UpdateEstructuraLigamentosDto,
+  ) {
     return this.estructuraRepository.update(id, updateEstructuraLigamentosDto);
   }
 
