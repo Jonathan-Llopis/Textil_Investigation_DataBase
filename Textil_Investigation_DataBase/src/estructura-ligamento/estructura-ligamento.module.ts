@@ -4,7 +4,6 @@ import { EstructuraLigamentosEntity } from './estructura-ligamento.entity';
 import { EstructuraLigamentosController } from './estructura-ligamento.controller';
 import { EstructuraLigamentosService } from './estructura-ligamento.service';
 
-
 Module({
   imports: [TypeOrmModule.forFeature([EstructuraLigamentosEntity])],
   controllers: [EstructuraLigamentosController],

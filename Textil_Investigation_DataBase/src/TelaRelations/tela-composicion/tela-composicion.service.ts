@@ -39,9 +39,7 @@ export class TelaComposicionService {
     return this.telaRepository.save(tela);
   }
 
-  async findTelasByComposicion(
-    id_composicion: number,
-  ): Promise<TelaEntity[]> {
+  async findTelasByComposicion(id_composicion: number): Promise<TelaEntity[]> {
     const composicion = await this.composicionRepository.findOne({
       where: { id: id_composicion },
       relations: ['telas'],

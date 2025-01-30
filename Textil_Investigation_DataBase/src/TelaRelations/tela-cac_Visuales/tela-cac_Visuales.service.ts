@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TelaEntity } from '../tela/tela.entity';
-import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
-import { Cac_VisualEntity } from '../cac_visuales/cac_visuales.entity';
+import { TelaEntity } from '../../tela/tela.entity';
+import { CreateTelaDto } from 'src/tela/tela.dto';
+import { Cac_VisualEntity } from '../../cac_visuales/cac_visuales.entity';
 
 @Injectable()
 export class TelaTipoCac_VisualesService {
@@ -34,7 +34,9 @@ export class TelaTipoCac_VisualesService {
         relations: ['telas'],
       });
       if (!cacVisual) {
-        throw new NotFoundException(`Cac Visual con id ${visualId} no encontrado`);
+        throw new NotFoundException(
+          `Cac Visual con id ${visualId} no encontrado`,
+        );
       }
       tela.caracteristicas_visuales.push(cacVisual);
     }
@@ -43,27 +45,33 @@ export class TelaTipoCac_VisualesService {
   }
 
   async findTelasByCacVisuales(
-    id_cac_visual: string,  
-  ): Promise<TelaEntity[]> {
-    const cacVisuales = await this.cacVisualesRepository.find({
-      where: { id_cac_visual },
-      relations: ['telas'],
-    });
+    id1: number,
+    id2: number,
+    id3: number,
+  ): Promise<TelaEntity> {
+    const tela = await this.telaRepository
+      .createQueryBuilder('tela')
+      .leftJoinAndSelect('tela.caracteristicas_visuales', 'cac_visuales')
+      .where('cac_visuales.id IN (:...ids)', { ids: [id1, id2, id3] })
+      .groupBy('tela.id')
+      .having('COUNT(cac_visuales.id) = 3')
+      .getOne();
 
-    if (!cacVisuales) {
-      throw new NotFoundException('Caracteristicas Visuales no encontradas');
+    if (!tela) {
+      throw new NotFoundException(
+        'Tela no encontrada con las características visuales proporcionadas',
+      );
     }
 
-    return cacVisuales.telas;
+    return tela;
   }
-  
 
   async updateCacVisualesFromTela(
     id_tela: number,
     cacVisuales: number[],
   ): Promise<TelaEntity> {
     const tela = await this.telaRepository.findOne({
-      where: { id_tela},
+      where: { id_tela },
       relations: ['cac_visuales'],
     });
     if (!tela) {

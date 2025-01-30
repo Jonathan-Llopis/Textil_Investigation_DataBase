@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TelaEntity } from '../../tela/tela.entity';
 import { EstructuraLigamentosEntity } from '../../estructura-ligamento/estructura-ligamento.entity';
-import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
 
 @Injectable()
 export class TelaEstructuraLigamentoService {
@@ -32,7 +31,9 @@ export class TelaEstructuraLigamentoService {
         relations: ['telas'],
       });
       if (!estructura) {
-        throw new NotFoundException(`Estructura Ligamento con ID ${id} no encontrada`);
+        throw new NotFoundException(
+          `Estructura Ligamento con ID ${id} no encontrada`,
+        );
       }
       tela.estructura_ligamentos.push(estructura);
     }
@@ -72,7 +73,9 @@ export class TelaEstructuraLigamentoService {
         relations: ['telas'],
       });
       if (!estructura) {
-        throw new NotFoundException(`Estructura Ligamento con ID ${id} no encontrada`);
+        throw new NotFoundException(
+          `Estructura Ligamento con ID ${id} no encontrada`,
+        );
       }
       nuevasEstructuras.push(estructura);
     }
