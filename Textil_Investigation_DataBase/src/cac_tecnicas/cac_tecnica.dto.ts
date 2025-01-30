@@ -1,4 +1,4 @@
-import {IsInt, IsOptional, IsNotEmpty } from 'class-validator';
+import { IsInt, IsOptional, IsNotEmpty } from 'class-validator';
 
 export class CreateCacTecnicaDto {
   @IsInt()

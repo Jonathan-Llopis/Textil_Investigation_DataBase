@@ -8,7 +8,7 @@ import { ConservacionSeeder } from './db/seeding/seeds/conservacion.seeds';
 import { ComposicionEntity } from './composicion/composicion.entity';
 import { TipoEstructuralEntity } from './tipo_estructural/tipo_estructural.entity';
 import { EstructuraLigamentosEntity } from './estructura-ligamento/estructura-ligamento.entity';
-import { AplicacionesEntity } from './aplicaciones/aplicaciones.enttity';
+import { AplicacionesEntity } from './aplicaciones/aplicaciones.entity';
 
 config();
 

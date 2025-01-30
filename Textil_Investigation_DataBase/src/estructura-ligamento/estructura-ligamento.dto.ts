@@ -1,7 +1,7 @@
-export class CreateEstructuraDto {
+export class CreateEstructuraLigamentosDto {
   descripcion: string;
 }
 
-export class UpdateEstructuraDto {
+export class UpdateEstructuraLigamentosDto {
   descripcion: string;
 }

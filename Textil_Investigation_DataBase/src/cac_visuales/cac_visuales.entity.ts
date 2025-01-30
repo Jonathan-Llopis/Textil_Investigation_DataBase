@@ -2,7 +2,7 @@ import { TelaEntity } from 'src/tela/tela.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 
 @Entity()
-export class CacVisualEntity {
+export class Cac_VisualEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

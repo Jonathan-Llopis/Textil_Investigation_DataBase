@@ -19,7 +19,6 @@ export class TelaTipoEstructuralController {
     private readonly telaTipoEstructuralService: TelaTipoEstructuralService,
   ) {}
 
-  // Agregar una nueva relación entre Tela y TipoEstructural
   @Post(':id')
   async addTipoEstructural(
     @Param('id') idTela: number,
@@ -30,32 +29,32 @@ export class TelaTipoEstructuralController {
       idTela,
     );
   }
-
-  // Actualizar la relación de TipoEstructural de una Tela
   @Put(':id_tela')
   async updateTipoEstructural(
     @Param('id_tela') idTela: number,
     @Body() updateTelaTipoEstructuralDto: UpdateTelaDto,
   ) {
-    return this.telaTipoEstructuralService.updateTipoEstructural(
+    return this.telaTipoEstructuralService.updateTipoEstructuralesFromTela(
       idTela,
-      updateTelaTipoEstructuralDto,
+      updateTelaTipoEstructuralDto.ids_tipo_estructural,
+    );
+  }
+  @Delete(':id_tela')
+  async removeAllTipoEstructural(@Param('id_tela') idTela: number) {
+    return this.telaTipoEstructuralService.removeAllTipoEstructuralesFromTela(
+      idTela,
     );
   }
 
-  // Eliminar todos los TipoEstructural de una Tela
-  @Delete(':id_tela')
-  async removeAllTipoEstructural(@Param('id_tela') idTela: number) {
-    return this.telaTipoEstructuralService.removeAllTipoEstructural(idTela);
-  }
-
-  // Eliminar un TipoEstructural específico de una Tela
   @Delete(':id_tela/:id_tipo_estructural')
   async removeTipoEstructural(
     @Param('id_tela') idTela: number,
     @Param('id_tipo_estructural') idTipoEstructural: number,
   ) {
-    return this.telaTipoEstructuralService.removeAllTipoEstructural(idTela);
+    return this.telaTipoEstructuralService.deleteTipoEstructuralFromTela(
+      idTela,
+      idTipoEstructural,
+    );
   }
 
   @Get('tipoestructural/:tipoEstructuralId/telas')
@@ -68,7 +67,7 @@ export class TelaTipoEstructuralController {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return this.telaTipoEstructuralService.findTelasByTipoEstructuralId(
+    return this.telaTipoEstructuralService.findTelaFromTipoEstructural(
       parseInt(tipoEstructuralId),
     );
   }
