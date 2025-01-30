@@ -1,4 +1,4 @@
-import { TelaEntity } from 'src/tela/tela.entity';
+import { TelaEntity } from '../tela/tela.entity';
 import {
   Entity,
   Column,

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { TelaTipoEstructuralService } from './tela-tipo_estructural.service';
 import { isEmpty } from 'class-validator';
-import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
+import { CreateTelaDto, UpdateTelaDto } from '../tela/tela.dto';
 
 @Controller('tela-tipo-estructural')
 export class TelaTipoEstructuralController {

@@ -9,9 +9,9 @@ import {
   Get,
   HttpStatus,
 } from '@nestjs/common';
-import { CreateTelaDto, UpdateTelaDto } from 'src/tela/tela.dto';
+import { CreateTelaDto, UpdateTelaDto } from '../../tela/tela.dto';
 import { TelaCacTecnicasService } from './tela-cac_tecnicas.service';
-import { isEmpty } from 'class-validator/types/decorator/common/IsEmpty';
+import { isEmpty } from 'class-validator';
 
 @Controller('tela-cac_tecnicas')
 export class TelaCacTecnicasController {

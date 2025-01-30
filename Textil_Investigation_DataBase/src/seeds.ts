@@ -9,6 +9,13 @@ import { ComposicionEntity } from './composicion/composicion.entity';
 import { TipoEstructuralEntity } from './tipo_estructural/tipo_estructural.entity';
 import { EstructuraLigamentosEntity } from './estructura-ligamento/estructura-ligamento.entity';
 import { AplicacionesEntity } from './aplicaciones/aplicaciones.entity';
+import { Cac_TecnicasEntity } from './cac_tecnicas/cac_tecnicas.entity';
+import { Cac_VisualEntity } from './cac_visuales/cac_visuales.entity';
+import { UserEntity } from './users/users.entity';
+import { AplicacionesSeeder } from './db/seeding/seeds/aplicaciones.seeds';
+import { ComposicionSeeder } from './db/seeding/seeds/composicion.seeds';
+import { TipoEstructuralSeeder } from './db/seeding/seeds/tipo_estructural.seeds';
+import { EstructuraLigamentoSeeder } from './db/seeding/seeds/estructura-ligamento.seeds';
 
 config();
 
@@ -21,14 +28,23 @@ const options: DataSourceOptions & SeederOptions = {
   database: process.env.MYSQL_DATABASE,
 
   entities: [
-    TelaEntity,
-    ComposicionEntity,
-    TipoEstructuralEntity,
-    ConservacionEntity,
-    EstructuraLigamentosEntity,
-    AplicacionesEntity,
+       AplicacionesEntity,
+       Cac_TecnicasEntity,
+       Cac_VisualEntity,
+       ComposicionEntity,
+       ConservacionEntity,
+       EstructuraLigamentosEntity,
+       TelaEntity,
+       TipoEstructuralEntity,
+       UserEntity,
   ],
-  seeds: [ConservacionSeeder],
+  seeds: [
+       AplicacionesSeeder,
+       ComposicionSeeder,
+       ConservacionSeeder,
+       EstructuraLigamentoSeeder,
+       TipoEstructuralSeeder,
+  ],
 };
 
 const dataSource = new DataSource(options);
