@@ -6,6 +6,9 @@ export class CreateTelaDto {
   @Length(1, 500)
   denominacion: string;
 
+  @IsString()
+  id_img: string;
+
   @IsArray()
   @IsInt()
   ids_aplicaciones?: number[];
@@ -46,6 +49,9 @@ export class UpdateTelaDto {
   @IsString()
   @Length(1, 500)
   denominacion?: string; // La denominación es opcional en la actualización
+
+  @IsString()
+  id_img: string;
 
   @IsOptional()
   @IsArray()
