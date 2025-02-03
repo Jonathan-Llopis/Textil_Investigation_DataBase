@@ -20,6 +20,7 @@ export class FilesController {
   constructor(
     private filesService: FilesService,
     private readonly telaService: TelaService,
+
   ) {}
 
   @Post('')
@@ -48,7 +49,10 @@ export class FilesController {
 
   @Post('tela/:id')
   @UseInterceptors(FilesInterceptor('file'))
-  uploadFilesToTela(@UploadedFiles() files, @Param('id') id_tela: string) {
+  uploadFilesToTela(
+    @UploadedFiles() files,
+    @Param('id') id_tela: string,
+  ) {
     console.log(files);
     const response = [];
 
