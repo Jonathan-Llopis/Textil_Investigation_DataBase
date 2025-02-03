@@ -21,6 +21,9 @@ export class TelaEntity {
   @Column()
   denominacion: string;
 
+  @Column({ nullable: true })
+  id_img: string;
+
   @ManyToMany(() => UserEntity, (user) => user.telas_favoritas)
   @JoinTable()
   users: UserEntity[];

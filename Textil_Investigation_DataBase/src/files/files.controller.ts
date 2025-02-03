@@ -12,14 +12,15 @@ import {
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import { FileResponseVm } from './view-models/file-response-vm.model';
-import { UsersService } from '../users/users.service';
 import { FileInfoVm } from './view-models/file-info-vm.model';
+import { TelaService } from 'src/tela/tela.service';
 
 @Controller('/files')
 export class FilesController {
   constructor(
     private filesService: FilesService,
-    private readonly userService: UsersService,
+    private readonly telaService: TelaService,
+
   ) {}
 
   @Post('')
@@ -40,6 +41,40 @@ export class FilesController {
         md5: file.md5,
         uploadDate: file.uploadDate,
         contentType: file.contentType,
+      };
+      response.push(fileReponse);
+    });
+    return response;
+  }
+
+  @Post('tela/:id')
+  @UseInterceptors(FilesInterceptor('file'))
+  uploadFilesToTela(
+    @UploadedFiles() files,
+    @Param('id') id_tela: string,
+  ) {
+    console.log(files);
+    const response = [];
+
+    files.forEach((file) => {
+      const fileId = file.id.toString();
+      this.telaService.update(parseInt(id_tela), {
+        id_img: fileId,
+      });
+      const fileReponse = {
+        originalname: file.originalname,
+        encoding: file.encoding,
+        mimetype: file.mimetype,
+        id: file.id,
+        filename: file.filename,
+        metadata: file.metadata,
+        bucketName: file.bucketName,
+        chunkSize: file.chunkSize,
+        size: file.size,
+        md5: file.md5,
+        uploadDate: file.uploadDate,
+        contentType: file.contentType,
+        id_img: fileId,
       };
       response.push(fileReponse);
     });
