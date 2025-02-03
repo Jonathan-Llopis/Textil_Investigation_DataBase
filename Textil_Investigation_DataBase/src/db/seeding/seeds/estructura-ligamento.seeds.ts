@@ -11,6 +11,6 @@ export class EstructuraLigamentoSeeder implements Seeder {
 
     await estructuraLigamentoRepository.save(estructuraLigamentoData);
 
-    console.log('Datos de Caracteristicas Técnicas insertados');
+    console.log('Datos de Estructura ligamentos insertados');
   }
 }

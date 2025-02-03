@@ -13,7 +13,7 @@ import {
 } from './tipo_estructural.dto';
 import { TipoEstructuralService } from './tipo_estructural.service';
 
-@Controller('tipo-estructurales')
+@Controller('tipos_estructurales')
 export class TipoEstructuralController {
   constructor(
     private readonly tipoEstructuralService: TipoEstructuralService,

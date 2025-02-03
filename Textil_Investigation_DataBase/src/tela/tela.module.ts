@@ -6,8 +6,10 @@ import { TelaEntity } from './tela.entity';
 import { FilesModule } from 'src/files/files.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TelaEntity]), 
-  forwardRef(() => FilesModule)],
+  imports: [
+    TypeOrmModule.forFeature([TelaEntity]),
+    forwardRef(() => FilesModule),
+  ],
   controllers: [TelaController],
   providers: [TelaService],
   exports: [TelaService],

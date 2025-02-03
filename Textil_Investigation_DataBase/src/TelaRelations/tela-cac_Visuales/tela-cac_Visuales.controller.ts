@@ -13,7 +13,6 @@ import { isEmpty } from 'class-validator';
 import { CreateTelaDto, UpdateTelaDto } from '../../tela/tela.dto';
 import { TelaTipoCac_VisualesService } from './tela-cac_Visuales.service';
 
-
 @Controller('tela-cac-visuales')
 export class TelaTipoCac_VisualesController {
   constructor(

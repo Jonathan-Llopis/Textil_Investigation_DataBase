@@ -18,6 +18,7 @@ import { TipoEstructuralSeeder } from './db/seeding/seeds/tipo_estructural.seeds
 import { EstructuraLigamentoSeeder } from './db/seeding/seeds/estructura-ligamento.seeds';
 import { CacVisualesSeeder } from './db/seeding/seeds/cac_visuales.seeds';
 import { CacTecnicasSeeder } from './db/seeding/seeds/cac_tecnicas.seeds';
+import { TelaSeeder } from './db/seeding/seeds/tela.seed';
 
 config();
 
@@ -30,24 +31,25 @@ const options: DataSourceOptions & SeederOptions = {
   database: process.env.MYSQL_DATABASE,
 
   entities: [
-       AplicacionesEntity,
-       Cac_TecnicasEntity,
-       Cac_VisualEntity,
-       ComposicionEntity,
-       ConservacionEntity,
-       EstructuraLigamentosEntity,
-       TelaEntity,
-       TipoEstructuralEntity,
-       UserEntity,
+    AplicacionesEntity,
+    Cac_TecnicasEntity,
+    Cac_VisualEntity,
+    ComposicionEntity,
+    ConservacionEntity,
+    EstructuraLigamentosEntity,
+    TelaEntity,
+    TipoEstructuralEntity,
+    UserEntity,
   ],
   seeds: [
-       AplicacionesSeeder,
-       ComposicionSeeder,
-       ConservacionSeeder,
-       EstructuraLigamentoSeeder,
-       TipoEstructuralSeeder,
-       CacTecnicasSeeder,
-       CacVisualesSeeder
+    AplicacionesSeeder,
+    ComposicionSeeder,
+    ConservacionSeeder,
+    EstructuraLigamentoSeeder,
+    TipoEstructuralSeeder,
+    CacTecnicasSeeder,
+    CacVisualesSeeder,
+    TelaSeeder,
   ],
 };
 

@@ -20,12 +20,35 @@ export class TelaService {
 
   // Obtener todas las telas
   async findAll(): Promise<TelaEntity[]> {
-    return this.telaRepository.find();
+    return this.telaRepository.find({
+      relations: [
+        'users',
+        'composiciones',
+        'tipo_estructurales',
+        'aplicaciones_tela',
+        'caracteristicas_tecnicas',
+        'caracteristicas_visuales',
+        'conservaciones',
+        'estructura_ligamentos',
+      ],
+    });
   }
 
   // Obtener una tela por ID
   async findOne(id: number): Promise<TelaEntity> {
-    const tela = await this.telaRepository.findOne({ where: { id_tela: id } });
+    const tela = await this.telaRepository.findOne({
+      where: { id_tela: id },
+      relations: [
+        'users',
+        'composiciones',
+        'tipo_estructurales',
+        'aplicaciones_tela',
+        'caracteristicas_tecnicas',
+        'caracteristicas_visuales',
+        'conservaciones',
+        'estructura_ligamentos',
+      ],
+    });
     if (!tela) {
       throw new NotFoundException('Tela no encontrada');
     }

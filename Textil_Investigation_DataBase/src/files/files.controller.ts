@@ -20,7 +20,6 @@ export class FilesController {
   constructor(
     private filesService: FilesService,
     private readonly telaService: TelaService,
-
   ) {}
 
   @Post('')
@@ -49,10 +48,7 @@ export class FilesController {
 
   @Post('tela/:id')
   @UseInterceptors(FilesInterceptor('file'))
-  uploadFilesToTela(
-    @UploadedFiles() files,
-    @Param('id') id_tela: string,
-  ) {
+  uploadFilesToTela(@UploadedFiles() files, @Param('id') id_tela: string) {
     console.log(files);
     const response = [];
 
@@ -146,35 +142,4 @@ export class FilesController {
       file: file,
     };
   }
-
-  // @Post('telaFoto/:id')
-  // @UseInterceptors(
-  //   FilesInterceptor('file', 10, {
-  //     fileFilter: (req, file, callback) => {
-  //       callback(null, true);
-  //     },
-  //   }),
-  // )
-  // uploadAvatar(@UploadedFiles() files, @Param('id') idUser: string) {
-  //   const response = [];
-  //   files.forEach((file) => {
-  //     const fileReponse = {
-  //       originalname: file.originalname,
-  //       encoding: file.encoding,
-  //       mimetype: file.mimetype,
-  //       id: file.id,
-  //       filename: file.filename,
-  //       metadata: file.metadata,
-  //       bucketName: file.bucketName,
-  //       chunkSize: file.chunkSize,
-  //       size: file.size,
-  //       md5: file.md5,
-  //       uploadDate: file.uploadDate,
-  //       contentType: file.contentType,
-  //     };
-  //     //this..vincularArchivo(idUser, file.id);
-  //     response.push(fileReponse);
-  //   });
-  //   return response;
-  // }
 }

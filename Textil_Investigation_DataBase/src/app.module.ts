@@ -51,7 +51,6 @@ import { TelaTipoEstructuralModule } from './TelaRelations/tela-tipo_estructural
     CacVisualesModule,
     ComposicionModule,
     ConservacionModule,
-    EstructuraLigamentosModule,
     TelaModule,
     TipoEstructuralModule,
     UsersModule,
@@ -64,6 +63,7 @@ import { TelaTipoEstructuralModule } from './TelaRelations/tela-tipo_estructural
     TelaConservacionModule,
     TelaEstructuraLigamentoModule,
     TelaTipoEstructuralModule,
+    EstructuraLigamentosModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
