@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TelaEntity } from '../../tela/tela.entity';
-import { TipoEstructuralEntity } from 'src/tipo_estructural/tipo_estructural.entity';
-import { CreateTelaDto } from 'src/tela/tela.dto';
+import { TipoEstructuralEntity } from '../../tipo_estructural/tipo_estructural.entity';
+import { CreateTelaDto } from '../../tela/tela.dto';
 @Injectable()
 export class TelaTipoEstructuralService {
   constructor(

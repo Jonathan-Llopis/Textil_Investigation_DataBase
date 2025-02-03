@@ -21,7 +21,7 @@ export class CacVisualesService {
   }
 
   findOne(id: number) {
-    return this.cacVisualRepository.findOneBy({ id });
+    return this.cacVisualRepository.findOneBy({ id_cac_visual: id });
   }
 
   update(id: number, updateCacVisualDto: UpdateCacVisualDto) {

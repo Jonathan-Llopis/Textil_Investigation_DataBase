@@ -1,11 +1,11 @@
-import { AplicacionesEntity } from 'src/aplicaciones/aplicaciones.entity';
-import { Cac_TecnicasEntity } from 'src/cac_tecnicas/cac_tecnicas.entity';
-import { Cac_VisualEntity } from 'src/cac_visuales/cac_visuales.entity';
-import { ComposicionEntity } from 'src/composicion/composicion.entity';
-import { ConservacionEntity } from 'src/conservacion/conservacion.entity';
-import { EstructuraLigamentosEntity } from 'src/estructura-ligamento/estructura-ligamento.entity';
-import { TipoEstructuralEntity } from 'src/tipo_estructural/tipo_estructural.entity';
-import { UserEntity } from 'src/users/users.entity';
+import { AplicacionesEntity } from '../aplicaciones/aplicaciones.entity';
+import { Cac_TecnicasEntity } from '../cac_tecnicas/cac_tecnicas.entity';
+import { Cac_VisualEntity } from '../cac_visuales/cac_visuales.entity';
+import { ComposicionEntity } from '../composicion/composicion.entity';
+import { ConservacionEntity } from '../conservacion/conservacion.entity';
+import { EstructuraLigamentosEntity } from '../estructura-ligamento/estructura-ligamento.entity';
+import { TipoEstructuralEntity } from '../tipo_estructural/tipo_estructural.entity';
+import { UserEntity } from '../users/users.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

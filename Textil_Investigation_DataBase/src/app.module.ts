@@ -29,6 +29,13 @@ import { AplicacionesModule } from './aplicaciones/aplicaciones.module';
 import { Cac_VisualEntity } from './cac_visuales/cac_visuales.entity';
 import { CacVisualesModule } from './cac_visuales/cac_visuales.module';
 import { EstructuraLigamentosModule } from './estructura-ligamento/estructura-ligamento.module';
+import { TelaAplicacionesModule } from './TelaRelations/tela-aplicaciones/tela-aplicaciones.module';
+import { TelaCacTecnicasModule } from './TelaRelations/tela-cac_tecnicas/tela-cac_tecnicas.module';
+import { TelaTipoCac_VisualesModule } from './TelaRelations/tela-cac_Visuales/tela-cac_Visuales.module';
+import { TelaComposicionModule } from './TelaRelations/tela-composicion/tela-composicion.module';
+import { TelaConservacionModule } from './TelaRelations/tela-conservacion/tela-conservacion.module';
+import { TelaEstructuraLigamentoModule } from './TelaRelations/tela-estructura_ligamento/tela-estructura_ligamento.module';
+import { TelaTipoEstructuralModule } from './TelaRelations/tela-tipo_estructural/tela-tipo_estructural.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -50,6 +57,13 @@ import { EstructuraLigamentosModule } from './estructura-ligamento/estructura-li
     UsersModule,
     UtilsModule,
     FilesModule,
+    TelaAplicacionesModule,
+    TelaCacTecnicasModule,
+    TelaTipoCac_VisualesModule,
+    TelaComposicionModule,
+    TelaConservacionModule,
+    TelaEstructuraLigamentoModule,
+    TelaTipoEstructuralModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
