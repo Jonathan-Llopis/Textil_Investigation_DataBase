@@ -94,3 +94,45 @@ export class UpdateTelaDto {
   @IsInt({ each: true })
   ids_estructura_ligamento?: number[];
 }
+
+export class FilterTelaDto {
+  @IsOptional()
+  @IsString()
+  @Length(1, 500)
+  denominacion?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  ids_aplicaciones?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  ids_tipo_estructural?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  ids_composicion?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  ids_conservacion?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  ids_estructura_ligamento?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  ids_cac_tecnica?: number[];
+
+  @IsOptional()
+  @IsArray()
+  @IsInt({ each: true })
+  ids_cac_visuales?: number[];
+}
