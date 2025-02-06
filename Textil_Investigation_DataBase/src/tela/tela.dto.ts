@@ -1,5 +1,6 @@
 import { IsArray, IsInt, IsOptional, IsString, Length } from 'class-validator';
 import { ArrayMaxSize } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTelaDto {
   @IsString()
@@ -94,45 +95,58 @@ export class UpdateTelaDto {
   @IsInt({ each: true })
   ids_estructura_ligamento?: number[];
 }
-
 export class FilterTelaDto {
   @IsOptional()
   @IsString()
   @Length(1, 500)
+  @ApiProperty({ example: 'Chifón' })
   denominacion?: string;
 
   @IsOptional()
   @IsArray()
   @IsInt({ each: true })
+  @ApiProperty({ example: [2, 4] })
   ids_aplicaciones?: number[];
 
   @IsOptional()
   @IsArray()
   @IsInt({ each: true })
+  @ApiProperty({ example: [2, 5] })
   ids_tipo_estructural?: number[];
 
   @IsOptional()
   @IsArray()
   @IsInt({ each: true })
+  @ApiProperty({ example: [2, 3] })
   ids_composicion?: number[];
 
   @IsOptional()
   @IsArray()
   @IsInt({ each: true })
+  @ApiProperty({ example: [2, 3] })
   ids_conservacion?: number[];
 
   @IsOptional()
   @IsArray()
   @IsInt({ each: true })
+  @ApiProperty({ example: [2, 3] })
   ids_estructura_ligamento?: number[];
 
   @IsOptional()
   @IsArray()
   @IsInt({ each: true })
-  ids_cac_tecnica?: number[];
+  @ArrayMaxSize(3, {
+    message: 'El campo cac_tecnicas debe tener un máximo de 3 elementos.',
+  })
+  @ApiProperty({ example: [1,1,3] })
+  cac_tecnicas?: number[];
 
   @IsOptional()
   @IsArray()
   @IsInt({ each: true })
-  ids_cac_visuales?: number[];
+  @ArrayMaxSize(3, {
+    message: 'El campo cac_visuales debe tener un máximo de 3 elementos.',
+  })
+  @ApiProperty({ example: [1,1,3] })
+  cac_visuales?: number[];
 }

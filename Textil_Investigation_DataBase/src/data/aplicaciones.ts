@@ -50,4 +50,34 @@ export default [
   {
     tipo_aplicacion: 'Ropa de bebe',
   },
+  {
+    tipo_aplicacion: 'Trajes de baño',
+  },
+  {
+    tipo_aplicacion: 'Ropa deportiva',
+  },
+  {
+    tipo_aplicacion: 'Uniformes',
+  },
+  {
+    tipo_aplicacion: 'Ropa de trabajo',
+  },
+  {
+    tipo_aplicacion: 'Accesorios',
+  },
+  {
+    tipo_aplicacion: 'Cortinas',
+  },
+  {
+    tipo_aplicacion: 'Tapicería',
+  },
+  {
+    tipo_aplicacion: 'Ropa de cama',
+  },
+  {
+    tipo_aplicacion: 'Mantelería',
+  },
+  {
+    tipo_aplicacion: 'Ropa interior',
+  },
 ];
