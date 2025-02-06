@@ -6,10 +6,12 @@ import {
   Delete,
   Param,
   Body,
+  Logger,
 } from '@nestjs/common';
 import { TelaService } from './tela.service';
 import { CreateTelaDto, FilterTelaDto } from './tela.dto';
 import { UpdateTelaDto } from './tela.dto';
+import { debug } from 'console';
 
 @Controller('telas')
 export class TelaController {
@@ -28,12 +30,13 @@ export class TelaController {
   }
 
   // Obtener una sola tela por ID
-  @Get(':id')
+  @Get('/:id')
   async getTelaById(@Param('id') id: number) {
     return this.telaService.findOne(id);
   }
+
   // Actualizar una tela por ID
-  @Put(':id')
+  @Put('/:id')
   async updateTela(
     @Param('id') id: number,
     @Body() updateTelaDto: UpdateTelaDto,
@@ -42,14 +45,13 @@ export class TelaController {
   }
 
   // Eliminar una tela por ID
-  @Delete(':id')
+  @Delete('/:id')
   async deleteTela(@Param('id') id: number) {
     return this.telaService.remove(id);
   }
 
-  @Get('filter')
+  @Post('/filter/telas')
   async filterTelas(@Body() filterTelaDto: FilterTelaDto) {
-    console.log(filterTelaDto);
     return this.telaService.filterTelas(filterTelaDto);
   }
 }
