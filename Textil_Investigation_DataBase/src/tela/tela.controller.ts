@@ -8,7 +8,7 @@ import {
   Body,
 } from '@nestjs/common';
 import { TelaService } from './tela.service';
-import { CreateTelaDto } from './tela.dto';
+import { CreateTelaDto, FilterTelaDto } from './tela.dto';
 import { UpdateTelaDto } from './tela.dto';
 
 @Controller('telas')
@@ -45,5 +45,11 @@ export class TelaController {
   @Delete(':id')
   async deleteTela(@Param('id') id: number) {
     return this.telaService.remove(id);
+  }
+
+  @Get('filter')
+  async filterTelas(@Body() filterTelaDto: FilterTelaDto) {
+    console.log(filterTelaDto);
+    return this.telaService.filterTelas(filterTelaDto);
   }
 }
