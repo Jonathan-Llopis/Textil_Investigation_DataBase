@@ -8,5 +8,6 @@ import { EstructuraLigamentosController } from './estructura-ligamento.controlle
   imports: [TypeOrmModule.forFeature([EstructuraLigamentosEntity])],
   controllers: [EstructuraLigamentosController],
   providers: [EstructuraLigamentosService],
+  exports: [EstructuraLigamentosService]
 })
 export class EstructuraLigamentosModule {}

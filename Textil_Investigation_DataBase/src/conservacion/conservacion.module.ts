@@ -9,5 +9,6 @@ import { ConservacionController } from './conservacion.controller';
   imports: [UtilsModule, TypeOrmModule.forFeature([ConservacionEntity])],
   controllers: [ConservacionController],
   providers: [ConservacionService],
+  exports: [ConservacionService]
 })
 export class ConservacionModule {}
