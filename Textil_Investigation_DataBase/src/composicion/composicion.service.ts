@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ComposicionEntity } from './composicion.entity';
@@ -30,5 +30,14 @@ export class ComposicionService {
 
   remove(id: number) {
     return this.composicionRepository.delete(id);
+  }
+  async findByName(name: string): Promise<ComposicionEntity> {
+    const composicion = await this.composicionRepository.findOne({
+      where: { descripcion: name },
+    });
+    if (!composicion) {
+      throw new NotFoundException('Composición no encontrada');
+    }
+    return composicion;
   }
 }

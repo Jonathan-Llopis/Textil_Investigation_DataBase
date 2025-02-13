@@ -13,6 +13,8 @@ import { ConservacionModule } from 'src/conservacion/conservacion.module';
 import { TipoEstructuralModule } from 'src/tipo_estructural/tipo_estructural.module';
 import { EstructuraLigamentosModule } from 'src/estructura-ligamento/estructura-ligamento.module';
 import * as multer from 'multer';
+import { CacVisualesModule } from 'src/cac_visuales/cac_visuales.module';
+import { CacTecnicasModule } from 'src/cac_tecnicas/cac_tecnicas.module';
 
 
 @Module({
@@ -31,6 +33,8 @@ import * as multer from 'multer';
     ConservacionModule,
     TipoEstructuralModule,
     EstructuraLigamentosModule,
+    CacVisualesModule,
+    CacTecnicasModule
   ],
   controllers: [FilesController],
   providers: [GridFsMulterConfigService, FilesService],

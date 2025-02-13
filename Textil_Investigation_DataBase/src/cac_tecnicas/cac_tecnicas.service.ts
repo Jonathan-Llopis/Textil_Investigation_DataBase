@@ -78,4 +78,20 @@ export class Cac_TecnicasService {
 
     return { message: 'Técnica eliminada satisfactoriamente' };
   }
+
+  async findByAttributes(
+    resistencia: number,
+    absorcion: number,
+    elasticidad: number,
+  ): Promise<Cac_TecnicasEntity> {
+    const cacTecnica = await this.cacTecnicasRepository.findOne({
+      where: { resistencia, absorcion, elasticidad },
+    });
+
+    if (!cacTecnica) {
+      throw new HttpException('Técnica no encontrada', HttpStatus.NOT_FOUND);
+    }
+
+    return cacTecnica;
+  }
 }

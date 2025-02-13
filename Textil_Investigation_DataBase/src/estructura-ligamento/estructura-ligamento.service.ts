@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EstructuraLigamentosEntity } from './estructura-ligamento.entity';
@@ -38,5 +38,15 @@ export class EstructuraLigamentosService {
 
   remove(id: number) {
     return this.estructuraRepository.delete(id);
+  }
+  
+  async findByName(name: string): Promise<EstructuraLigamentosEntity> {
+    const estructuraLigamento = await this.estructuraRepository.findOne({
+      where: { descripcion: name },
+    });
+    if (!estructuraLigamento) {
+      throw new NotFoundException('Estructura de ligamento no encontrada');
+    }
+    return estructuraLigamento;
   }
 }

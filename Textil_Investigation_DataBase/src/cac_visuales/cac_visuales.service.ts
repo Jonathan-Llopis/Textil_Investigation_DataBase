@@ -31,4 +31,8 @@ export class CacVisualesService {
   remove(id: number) {
     return this.cacVisualRepository.delete(id);
   }
+
+  findByAttributes(transparencia: number, brillo: number, tacto: number) {
+    return this.cacVisualRepository.findOneBy({ transparencia, brillo, tacto });
+  }
 }

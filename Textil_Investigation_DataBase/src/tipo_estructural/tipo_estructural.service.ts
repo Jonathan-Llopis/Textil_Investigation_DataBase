@@ -61,4 +61,14 @@ export class TipoEstructuralService {
       throw new NotFoundException('Tipo estructural no encontrado');
     }
   }
+  // Obtener un tipo estructural por nombre
+  async findByName(name: string): Promise<TipoEstructuralEntity> {
+    const tipoEstructural = await this.tipoEstructuralRepository.findOne({
+      where: { tipo: name },
+    });
+    if (!tipoEstructural) {
+      throw new NotFoundException('Tipo estructural no encontrado');
+    }
+    return tipoEstructural;
+  }
 }

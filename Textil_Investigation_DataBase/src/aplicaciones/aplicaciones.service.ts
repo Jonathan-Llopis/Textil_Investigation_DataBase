@@ -57,4 +57,14 @@ export class AplicacionesService {
       throw new NotFoundException('Aplicación no encontrada');
     }
   }
+  // Obtener una aplicación por nombre
+  async findByName(name: string): Promise<AplicacionesEntity> {
+    const aplicacion = await this.aplicacionesRepository.findOne({
+      where: { tipo_aplicacion: name },
+    });
+    if (!aplicacion) {
+      throw new NotFoundException('Aplicación no encontrada');
+    }
+    return aplicacion;
+  }
 }

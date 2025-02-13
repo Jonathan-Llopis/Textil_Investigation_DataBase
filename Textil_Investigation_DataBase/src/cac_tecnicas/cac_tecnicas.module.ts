@@ -9,5 +9,6 @@ import { Cac_TecnicasEntity } from './cac_tecnicas.entity';
   imports: [UtilsModule, TypeOrmModule.forFeature([Cac_TecnicasEntity])],
   controllers: [Cac_TecnicasController],
   providers: [Cac_TecnicasService],
+  exports: [Cac_TecnicasService],
 })
 export class CacTecnicasModule {}

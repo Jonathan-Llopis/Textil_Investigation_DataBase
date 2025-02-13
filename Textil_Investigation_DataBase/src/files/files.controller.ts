@@ -20,6 +20,9 @@ import { AplicacionesService } from 'src/aplicaciones/aplicaciones.service';
 import { ConservacionService } from 'src/conservacion/conservacion.service';
 import { TipoEstructuralService } from 'src/tipo_estructural/tipo_estructural.service';
 import { EstructuraLigamentosService } from 'src/estructura-ligamento/estructura-ligamento.service';
+import { CacVisualesService } from 'src/cac_visuales/cac_visuales.service';
+import { Cac_TecnicasService } from 'src/cac_tecnicas/cac_tecnicas.service';
+
 
 @Controller('/files')
 export class FilesController {
@@ -31,6 +34,8 @@ export class FilesController {
     private readonly conservacionService: ConservacionService,
     private readonly tipoEstructuralService: TipoEstructuralService,
     private readonly estructuraLigamentosService: EstructuraLigamentosService,
+    private readonly cacTecnicas: Cac_TecnicasService,
+    private readonly cacVisuales: CacVisualesService,
   ) {}
 
   @Post('')
@@ -93,6 +98,7 @@ export class FilesController {
     const files = await this.filesService.findAll();
     return files;
   }
+
   @Get('info/:id')
   async getFileInfo(@Param('id') id: string): Promise<FileResponseVm> {
     const file = await this.filesService.findInfo(id);
@@ -153,88 +159,209 @@ export class FilesController {
       file: file,
     };
   }
-  
-@Post('create-entity/:type')
-@UseInterceptors(FilesInterceptor('file'))
-async createEntity(
-  @UploadedFiles() files: Express.Multer.File[],
-  @Param('type') type: string,
-) {
-  if (!files || files.length === 0) {
-    throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
+
+  @Post('create-entity/:type')
+  @UseInterceptors(FilesInterceptor('file'))
+  async createEntity(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Param('type') type: string,
+  ) {
+    if (!files || files.length === 0) {
+      throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
+    }
+
+    const file = files[0];
+    const fileBuffer = file.buffer || Buffer.from(file.buffer);
+    if (!fileBuffer) {
+      throw new HttpException('File buffer is undefined', HttpStatus.BAD_REQUEST);
+    }
+    const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet);
+    console.log(jsonData);
+
+    let entities: any[];
+    switch (type) {
+      case '1':
+        entities = jsonData.map(row => ({
+          aplicacion: row['nombre'],
+        }));
+
+        for (const entity of entities) {
+          await this.aplicacionesService.create({
+            tipo_aplicacion: entity.aplicacion,
+          });
+        }
+        break;
+      case '2':
+        entities = jsonData.map(row => ({
+          composicion: row['nombre'],
+        }));
+        console.log(entities);
+        for (const entity of entities) {
+          await this.composicionService.create({
+            descripcion: entity.composicion,
+          });
+        }
+        break;
+      case '3':
+        entities = jsonData.map(row => ({
+          conservacion: row['nombre'],
+        }));
+        console.log(entities);
+        for (const entity of entities) {
+          await this.conservacionService.createConservacion({
+            description: entity.conservacion
+          });
+        }
+        break;
+      case '4':
+        entities = jsonData.map(row => ({
+          estructura_ligamento: row['nombre'],
+        }));
+        console.log(entities);
+        for (const entity of entities) {
+          await this.estructuraLigamentosService.create({
+            descripcion: entity.estructura_ligamento,
+          });
+        }
+        break;
+      case '5':
+        entities = jsonData.map(row => ({
+          tipo_estructural: row['nombre'],
+        }));
+        console.log(entities);
+        for (const entity of entities) {
+          await this.tipoEstructuralService.create({
+            tipo: entity.tipo_estructural,
+          });
+        }
+        break;
+      default:
+        throw new HttpException('Invalid type parameter', HttpStatus.BAD_REQUEST);
+    }
+
+    return { message: 'Entities created successfully', entities };
   }
 
-  const file = files[0];
-  const fileBuffer = file.buffer || Buffer.from(file.buffer);
-  if (!fileBuffer) {
-    throw new HttpException('File buffer is undefined', HttpStatus.BAD_REQUEST);
-  }
-  const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
-  const sheetName = workbook.SheetNames[0];
-  const worksheet = workbook.Sheets[sheetName];
-  const jsonData = XLSX.utils.sheet_to_json(worksheet);
+  @Post('create-telas')
+  @UseInterceptors(FilesInterceptor('file'))
+  async createTelas(@UploadedFiles() files: Express.Multer.File[]) {
+    if (!files || files.length === 0) {
+      throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
+    }
 
-  let entities: any[];
-  switch (type) {
-    case '1':
-      entities = jsonData.map(row => ({
-        aplicacion: row['nombre'],
-      }));
-      console.log(entities);
-      for (const entity of entities) {
-      await this.aplicacionesService.create({
-        tipo_aplicacion: entity.aplicacion,
+    const file = files[0];
+    const fileBuffer = file.buffer || Buffer.from(file.buffer);
+    if (!fileBuffer) {
+      throw new HttpException('File buffer is undefined', HttpStatus.BAD_REQUEST);
+    }
+    const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+
+    const telas = jsonData.map(row => ({
+      denominacion: row['DENOMINACION'],
+      composicion: row['COMPOSICION']?.split('/') || [],
+      tipoEstructural: row['TIPO ESTRUCTURAL']?.split('/') || [],
+      caracteristicasTecnicas: row['CARACTERISTICAS TECNICAS']?.split('/') || [],
+      caracteristicasVisuales: row['CARACTERISTICAS VISUALES']?.split('/') || [],
+      aplicaciones: row['APLICACIONES']?.split('/') || [],
+      ejemplosAplicaciones: row['EJEMPLOS APLICACIONES']?.split('/') || [],
+      conservacion: row['CONSERVACION']?.split('/') || [],
+      simbologia: row['SIMBOLOGIA']?.split('/') || [],
+      estructuraLigamento: row['ESTRUCTURA Y LIGAMENTO']?.split('/') || [],
+    }));
+
+
+    for (const tela of telas) {
+      const composicion = await Promise.all(
+        tela.composicion.map(async (name) => {
+          const comp = await this.composicionService.findByName(name);
+          if (!comp) {
+        throw new HttpException(`Composicion not found: ${name}`, HttpStatus.NOT_FOUND);
+          }
+          return comp.id;
+        })
+      );
+
+      const tipoEstructural = await Promise.all(
+        tela.tipoEstructural.map(async (name) => {
+          const tipo = await this.tipoEstructuralService.findByName(name);
+          if (!tipo) {
+        throw new HttpException(`Tipo Estructural not found: ${name}`, HttpStatus.NOT_FOUND);
+          }
+          return tipo.id_tipo_estructural;
+        })
+      );
+
+      const aplicaciones = await Promise.all(
+        tela.aplicaciones.map(async (name) => {
+          const app = await this.aplicacionesService.findByName(name);
+          if (!app) {
+        throw new HttpException(`Aplicaciones not found: ${name}`, HttpStatus.NOT_FOUND);
+          }
+          return app.id_aplicaciones;
+        })
+      );
+
+      const conservacion = await Promise.all(
+        tela.conservacion.map(async (name) => {
+          const cons = await this.conservacionService.findByName(name);
+          if (!cons) {
+        throw new HttpException(`Conservacion not found: ${name}`, HttpStatus.NOT_FOUND);
+          }
+          return cons.id;
+        })
+      );
+
+      const estructuraLigamento = await Promise.all(
+        tela.estructuraLigamento.map(async (name) => {
+          const estruc = await this.estructuraLigamentosService.findByName(name);
+          if (!estruc) {
+        throw new HttpException(`Estructura Ligamento not found: ${name}`, HttpStatus.NOT_FOUND);
+          }
+          return estruc.id;
+        })
+      );
+
+      const cacTecnicas = await Promise.all(
+        tela.caracteristicasTecnicas.map(async (name) => {
+          const tecnica = await this.cacTecnicas.findByAttributes(name.param1, name.param2, name.param3);
+          if (!tecnica) {
+        throw new HttpException(`Caracteristicas Tecnicas not found: ${name.param1}`, HttpStatus.NOT_FOUND);
+          }
+          return tecnica.id;
+        })
+      );
+
+      const cacVisuales = await Promise.all(
+        tela.caracteristicasVisuales.map(async (name) => {
+          const tecnica = await this.cacVisuales.findByAttributes(name.param1, name.param2, name.param3);
+          if (!tecnica) {
+        throw new HttpException(`Caracteristicas Tecnicas not found: ${name.param1}`, HttpStatus.NOT_FOUND);
+          }
+          return tecnica.id_cac_visual;
+        })
+      );
+      
+      await this.telaService.create({
+        denominacion: tela.denominacion,
+        ids_composicion: composicion,
+        ids_tipo_estructural: tipoEstructural,
+        ids_cac_tecnica: cacTecnicas,
+        ids_cac_visuales: cacVisuales,
+        ids_aplicaciones: aplicaciones,
+        ids_conservacion: conservacion,
+        ids_estructura_ligamento: estructuraLigamento,
+        id_img: ''
       });
-      }
-      break;
-    case '2':
-      entities = jsonData.map(row => ({
-        composicion: row['nombre'],
-      }));
-      console.log(entities);
-      for (const entity of entities) {
-        await this.composicionService.create({
-          descripcion: entity.composicion,
-        });
-      }
-      break;
-    case '3':
-      entities = jsonData.map(row => ({
-        conservacion: row['nombre'],
-      }));
-      console.log(entities);
-      for (const entity of entities) {
-        await this.conservacionService.createConservacion({
-           description: entity.conservacion
-        });
-      }
-      break;
-    case '4':
-      entities = jsonData.map(row => ({
-        estructura_ligamento: row['nombre'],
-      }));
-      console.log(entities);
-      for (const entity of entities) {
-        await this.estructuraLigamentosService.create({
-          descripcion: entity.estructura_ligamento,
-        });
-      }
-      break;
-    case '5':
-      entities = jsonData.map(row => ({
-        tipo_estructural: row['nombre'],
-      }));
-      console.log(entities);
-      for (const entity of entities) {
-        await this.tipoEstructuralService.create({
-          tipo: entity.tipo_estructural,
-        });
-      }
-      break;
-    default:
-      throw new HttpException('Invalid type parameter', HttpStatus.BAD_REQUEST);
-  }
+    }
+    
 
-  return { message: 'Entities created successfully', entities };
-}
+    return { message: 'Telas created successfully', telas };
+  }
 }
