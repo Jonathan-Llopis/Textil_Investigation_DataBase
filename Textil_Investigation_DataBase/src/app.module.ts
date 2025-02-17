@@ -113,6 +113,8 @@ export class AppModule implements NestModule {
       .exclude(
         { path: 'users/login', method: RequestMethod.POST },
         { path: 'users', method: RequestMethod.POST },
+        {path: 'files/create-telas', method: RequestMethod.POST},
+        {path: 'files/create-entity', method: RequestMethod.POST},
       )
       .forRoutes('*');
   }

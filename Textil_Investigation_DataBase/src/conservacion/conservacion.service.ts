@@ -96,13 +96,6 @@ export class ConservacionService {
       where: { description: name },
     });
 
-    if (!conservacion) {
-      throw new HttpException(
-        'Conservación no encontrada',
-        HttpStatus.NOT_FOUND,
-      );
-    }
-
     return conservacion;
   }
 }

@@ -88,10 +88,6 @@ export class Cac_TecnicasService {
       where: { resistencia, absorcion, elasticidad },
     });
 
-    if (!cacTecnica) {
-      throw new HttpException('Técnica no encontrada', HttpStatus.NOT_FOUND);
-    }
-
     return cacTecnica;
   }
 }

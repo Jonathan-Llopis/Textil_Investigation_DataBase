@@ -62,9 +62,6 @@ export class AplicacionesService {
     const aplicacion = await this.aplicacionesRepository.findOne({
       where: { tipo_aplicacion: name },
     });
-    if (!aplicacion) {
-      throw new NotFoundException('Aplicación no encontrada');
-    }
     return aplicacion;
   }
 }

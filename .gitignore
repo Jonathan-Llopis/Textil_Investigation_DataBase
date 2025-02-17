@@ -22,3 +22,5 @@ Thumbs.db # Archivos de Windows
 coverage/ # Informes de cobertura de tests
 Textil_Investigation/
 
+
+cuentas.txt

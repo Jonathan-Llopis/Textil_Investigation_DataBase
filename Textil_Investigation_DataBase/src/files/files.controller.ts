@@ -185,7 +185,7 @@ export class FilesController {
     switch (type) {
       case '1':
         entities = jsonData.map(row => ({
-          aplicacion: row['nombre'],
+          aplicacion: row['NOMBRE'],
         }));
 
         for (const entity of entities) {
@@ -196,7 +196,7 @@ export class FilesController {
         break;
       case '2':
         entities = jsonData.map(row => ({
-          composicion: row['nombre'],
+          composicion: row['NOMBRE'],
         }));
         console.log(entities);
         for (const entity of entities) {
@@ -207,7 +207,7 @@ export class FilesController {
         break;
       case '3':
         entities = jsonData.map(row => ({
-          conservacion: row['nombre'],
+          conservacion: row['NOMBRE'],
         }));
         console.log(entities);
         for (const entity of entities) {
@@ -218,7 +218,7 @@ export class FilesController {
         break;
       case '4':
         entities = jsonData.map(row => ({
-          estructura_ligamento: row['nombre'],
+          estructura_ligamento: row['NOMBRE'],
         }));
         console.log(entities);
         for (const entity of entities) {
@@ -229,7 +229,7 @@ export class FilesController {
         break;
       case '5':
         entities = jsonData.map(row => ({
-          tipo_estructural: row['nombre'],
+          tipo_estructural: row['NOMBRE'],
         }));
         console.log(entities);
         for (const entity of entities) {
@@ -242,7 +242,7 @@ export class FilesController {
         throw new HttpException('Invalid type parameter', HttpStatus.BAD_REQUEST);
     }
 
-    return { message: 'Entities created successfully', entities };
+    return 'Entities created successfully' ;
   }
 
   @Post('create-telas')
@@ -267,8 +267,8 @@ export class FilesController {
       denominacion: row['DENOMINACION'],
       composicion: row['COMPOSICION']?.split('/') || [],
       tipoEstructural: row['TIPO ESTRUCTURAL']?.split('/') || [],
-      caracteristicasTecnicas: row['CARACTERISTICAS TECNICAS']?.split('/') || [],
-      caracteristicasVisuales: row['CARACTERISTICAS VISUALES']?.split('/') || [],
+      caracteristicasTecnicas: row['CARACTERISTICAS TECNICAS']?.split('-') || [],
+      caracteristicasVisuales: row['CARACTERISTICAS VISUALES']?.split('') || [],
       aplicaciones: row['APLICACIONES']?.split('/') || [],
       ejemplosAplicaciones: row['EJEMPLOS APLICACIONES']?.split('/') || [],
       conservacion: row['CONSERVACION']?.split('/') || [],
@@ -276,13 +276,16 @@ export class FilesController {
       estructuraLigamento: row['ESTRUCTURA Y LIGAMENTO']?.split('/') || [],
     }));
 
+     var contador = 2;
+     var telasList = [];
 
     for (const tela of telas) {
+
       const composicion = await Promise.all(
         tela.composicion.map(async (name) => {
           const comp = await this.composicionService.findByName(name);
           if (!comp) {
-        throw new HttpException(`Composicion not found: ${name}`, HttpStatus.NOT_FOUND);
+        throw new HttpException(` Error en la linea ${contador} -  Composicion not found: ${name}`, HttpStatus.NOT_FOUND);
           }
           return comp.id;
         })
@@ -292,7 +295,7 @@ export class FilesController {
         tela.tipoEstructural.map(async (name) => {
           const tipo = await this.tipoEstructuralService.findByName(name);
           if (!tipo) {
-        throw new HttpException(`Tipo Estructural not found: ${name}`, HttpStatus.NOT_FOUND);
+        throw new HttpException(`Error en la linea ${contador} - Tipo Estructural not found: ${name}`, HttpStatus.NOT_FOUND);
           }
           return tipo.id_tipo_estructural;
         })
@@ -302,7 +305,7 @@ export class FilesController {
         tela.aplicaciones.map(async (name) => {
           const app = await this.aplicacionesService.findByName(name);
           if (!app) {
-        throw new HttpException(`Aplicaciones not found: ${name}`, HttpStatus.NOT_FOUND);
+        throw new HttpException(`Error en la linea ${contador} - Aplicaciones not found: ${name}`, HttpStatus.NOT_FOUND);
           }
           return app.id_aplicaciones;
         })
@@ -312,7 +315,7 @@ export class FilesController {
         tela.conservacion.map(async (name) => {
           const cons = await this.conservacionService.findByName(name);
           if (!cons) {
-        throw new HttpException(`Conservacion not found: ${name}`, HttpStatus.NOT_FOUND);
+        throw new HttpException(`Error en la linea ${contador} - Conservacion not found: ${name}`, HttpStatus.NOT_FOUND);
           }
           return cons.id;
         })
@@ -322,7 +325,7 @@ export class FilesController {
         tela.estructuraLigamento.map(async (name) => {
           const estruc = await this.estructuraLigamentosService.findByName(name);
           if (!estruc) {
-        throw new HttpException(`Estructura Ligamento not found: ${name}`, HttpStatus.NOT_FOUND);
+        throw new HttpException(`Error en la linea ${contador} - Estructura Ligamento not found: ${name}`, HttpStatus.NOT_FOUND);
           }
           return estruc.id;
         })
@@ -332,7 +335,7 @@ export class FilesController {
         tela.caracteristicasTecnicas.map(async (name) => {
           const tecnica = await this.cacTecnicas.findByAttributes(name.param1, name.param2, name.param3);
           if (!tecnica) {
-        throw new HttpException(`Caracteristicas Tecnicas not found: ${name.param1}`, HttpStatus.NOT_FOUND);
+        throw new HttpException(`Error en la linea ${contador} - Caracteristicas Tecnicas not found: ${name.param1}`, HttpStatus.NOT_FOUND);
           }
           return tecnica.id;
         })
@@ -342,13 +345,14 @@ export class FilesController {
         tela.caracteristicasVisuales.map(async (name) => {
           const tecnica = await this.cacVisuales.findByAttributes(name.param1, name.param2, name.param3);
           if (!tecnica) {
-        throw new HttpException(`Caracteristicas Tecnicas not found: ${name.param1}`, HttpStatus.NOT_FOUND);
+        throw new HttpException(`Error en la linea ${contador} - Caracteristicas Tecnicas not found: ${name.param1}`, HttpStatus.NOT_FOUND);
           }
           return tecnica.id_cac_visual;
         })
       );
       
-      await this.telaService.create({
+
+      const telaEntity = {
         denominacion: tela.denominacion,
         ids_composicion: composicion,
         ids_tipo_estructural: tipoEstructural,
@@ -358,10 +362,17 @@ export class FilesController {
         ids_conservacion: conservacion,
         ids_estructura_ligamento: estructuraLigamento,
         id_img: ''
-      });
+      };
+
+      telasList.push(telaEntity);
+
+      ++contador;
     }
     
+    for (const tela of telasList) {
+      await this.telaService.create(tela);
+    }
 
-    return { message: 'Telas created successfully', telas };
+    return  'Telas created successfully';
   }
 }

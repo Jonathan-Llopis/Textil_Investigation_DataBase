@@ -66,9 +66,7 @@ export class TipoEstructuralService {
     const tipoEstructural = await this.tipoEstructuralRepository.findOne({
       where: { tipo: name },
     });
-    if (!tipoEstructural) {
-      throw new NotFoundException('Tipo estructural no encontrado');
-    }
+  
     return tipoEstructural;
   }
 }

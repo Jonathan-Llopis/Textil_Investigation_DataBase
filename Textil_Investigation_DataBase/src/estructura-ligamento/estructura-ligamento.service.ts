@@ -44,9 +44,6 @@ export class EstructuraLigamentosService {
     const estructuraLigamento = await this.estructuraRepository.findOne({
       where: { descripcion: name },
     });
-    if (!estructuraLigamento) {
-      throw new NotFoundException('Estructura de ligamento no encontrada');
-    }
     return estructuraLigamento;
   }
 }

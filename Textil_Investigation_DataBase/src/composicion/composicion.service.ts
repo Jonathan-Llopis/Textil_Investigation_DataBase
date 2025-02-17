@@ -35,9 +35,6 @@ export class ComposicionService {
     const composicion = await this.composicionRepository.findOne({
       where: { descripcion: name },
     });
-    if (!composicion) {
-      throw new NotFoundException('Composición no encontrada');
-    }
     return composicion;
   }
 }

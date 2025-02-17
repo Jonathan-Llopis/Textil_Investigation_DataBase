@@ -1,20 +1,20 @@
 export default [
   {
-    tipo: 'Vaporoso',
+    tipo: 'VAPOROSO',
   },
   {
-    tipo: 'Con caida',
+    tipo: 'CON CAIDA',
   },
   {
-    tipo: 'Punto plano',
+    tipo: 'PUNTO PLANO',
   },
   {
-    tipo: 'Liso',
+    tipo: 'LISO',
   },
   {
-    tipo: 'Crujiente',
+    tipo: 'CRUJIENTE',
   },
   {
-    tipo: 'Rigido',
+    tipo: 'RIGIDO',
   },
 ];

@@ -1,4 +1,4 @@
-import { DataSource } from 'typeorm';
+import { DataSource, In } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
 import telaData from '../../../data/tela';
 import { TelaEntity } from '../../../tela/tela.entity';
@@ -26,26 +26,27 @@ export class TelaSeeder implements Seeder {
     const conservacionRepository = dataSource.getRepository(ConservacionEntity);
 
     for (const tela of telaData) {
-      const aplicaciones = await aplicacionesRepository.findByIds(
-        tela.aplicaciones,
-      );
-      const composiciones = await composicionRepository.findByIds(
-        tela.composicion,
-      );
-      const tipoEstructurales = await tipoEstructuralRepository.findByIds(
-        tela.tipo_estructural,
-      );
-      const estructuraLigamentos =
-        await estructuraLigamentosRepository.findByIds(
-          tela.estructura_ligamento,
-        );
-      const cacTecnicas = await cacTecnicasRepository.findByIds(
-        tela.cac_tecnica,
-      );
-      const cacVisuales = await cacVisualRepository.findByIds(tela.cac_visual);
-      const conservaciones = await conservacionRepository.findByIds(
-        tela.conservacion,
-      );
+      const aplicaciones = await aplicacionesRepository.findBy({
+        id_aplicaciones: In(tela.aplicaciones),
+      });
+      const composiciones = await composicionRepository.findBy({
+        id: In(tela.composicion),
+      });
+      const tipoEstructurales = await tipoEstructuralRepository.findBy({
+        id_tipo_estructural: In(tela.tipo_estructural),
+      });
+      const estructuraLigamentos = await estructuraLigamentosRepository.findBy({
+        id: In(tela.estructura_ligamento),
+      });
+      const cacTecnicas = await cacTecnicasRepository.findBy({
+        id: tela.cac_tecnica,
+      });
+      const cacVisuales = await cacVisualRepository.findBy({
+        id_cac_visual: tela.cac_visual,
+      });
+      const conservaciones = await conservacionRepository.findBy({
+        id: In(tela.conservacion),
+      });
 
       await telaRepository.save({
         denominacion: tela.denominacion,
