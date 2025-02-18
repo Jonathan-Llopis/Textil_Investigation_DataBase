@@ -57,13 +57,23 @@ export class TelaService {
 
   // Actualizar una tela por ID
   async update(id: number, updateTelaDto: UpdateTelaDto): Promise<TelaEntity> {
-    const tela = await this.telaRepository.findOne({ where: { id_tela: id } });
+    const tela = await this.telaRepository.findOneBy({ id_tela: id });
     if (!tela) {
       throw new NotFoundException('Tela no encontrada');
     }
-    Object.assign(tela, updateTelaDto);
+    tela.id_img = updateTelaDto.id_img;
     return this.telaRepository.save(tela);
   }
+
+  async updateImg(id: number, idImagen: string): Promise<TelaEntity> {
+    const tela = await this.telaRepository.findOneBy({ id_tela: id });
+    if (!tela) {
+      throw new NotFoundException('Tela no encontrada');
+    }
+    tela.id_img = idImagen.toString();
+    return this.telaRepository.save(tela);
+  }
+
 
   // Eliminar una tela por ID
   async remove(id: number): Promise<void> {

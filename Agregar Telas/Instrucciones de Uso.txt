@@ -2,6 +2,21 @@
 
 Si no tienes experiencia con computadoras, no te preocupes. Sigue estos pasos con calma y podrás completar la tarea sin problemas.
 
+Los campos Caracteristicas Visuales y Caracteristicas Técnicas representan 3 valores cada uno: 
+
+Campos de Características Visuales
+
+    Transparencia (1 al 5)
+    Brillo (1 al 5)
+    Tacto (1 al 5)
+
+
+Campos de Características Técnicas
+    
+    Resistencia (1 al 5)
+    Absorción (1 al 5)
+    Elasticidad (1 al 5)
+
 ---
 
 ### Paso 1: Añadir nuevos campos

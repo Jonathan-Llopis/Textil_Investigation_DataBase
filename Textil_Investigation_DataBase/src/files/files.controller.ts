@@ -65,14 +65,9 @@ export class FilesController {
   @Post('tela/:id')
   @UseInterceptors(FilesInterceptor('file'))
   uploadFilesToTela(@UploadedFiles() files, @Param('id') id_tela: string) {
-    console.log(files);
     const response = [];
-
     files.forEach((file) => {
-      const fileId = file.id.toString();
-      this.telaService.update(parseInt(id_tela), {
-        id_img: fileId,
-      });
+     
       const fileReponse = {
         originalname: file.originalname,
         encoding: file.encoding,
@@ -86,8 +81,14 @@ export class FilesController {
         md5: file.md5,
         uploadDate: file.uploadDate,
         contentType: file.contentType,
-        id_img: fileId,
       };
+      console.log(fileReponse);
+      if (!file.id) {
+        throw new HttpException('File ID is undefined', HttpStatus.BAD_REQUEST);
+      }
+      this.telaService.updateImg(parseInt(id_tela), 
+      file.id,
+      );
       response.push(fileReponse);
     });
     return response;
