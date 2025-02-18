@@ -31,7 +31,7 @@ if [[ $CONFIRMATION != "s" ]]; then
 fi
 
 # Define the endpoint URL
-ENDPOINT_URL="http://localhost:8000/files/create-entity/$TYPE"
+ENDPOINT_URL="http://localhost:8000/telas/create-entity/$TYPE"
 
 # Make the POST request with the file and show the response
 curl -i -X POST "$ENDPOINT_URL" -F "file=@$FILE_PATH" -H "Content-Type: multipart/form-data"

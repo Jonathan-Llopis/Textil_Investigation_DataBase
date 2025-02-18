@@ -115,6 +115,7 @@ export class AppModule implements NestModule {
         { path: 'users', method: RequestMethod.POST },
         {path: 'files/create-telas', method: RequestMethod.POST},
         {path: 'files/create-entity', method: RequestMethod.POST},
+        {path: 'files/tela', method: RequestMethod.POST},
       )
       .forRoutes('*');
   }

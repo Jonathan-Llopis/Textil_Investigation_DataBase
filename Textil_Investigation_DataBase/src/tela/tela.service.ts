@@ -7,6 +7,7 @@ import { UpdateTelaDto } from './tela.dto';
 
 @Injectable()
 export class TelaService {
+
   constructor(
     @InjectRepository(TelaEntity)
     private readonly telaRepository: Repository<TelaEntity>,
@@ -16,6 +17,12 @@ export class TelaService {
   async create(createTelaDto: CreateTelaDto): Promise<TelaEntity> {
     const tela = this.telaRepository.create(createTelaDto);
     return this.telaRepository.save(tela);
+  }
+
+  async findByDenominacion(denominacion: string): Promise<TelaEntity[]> {
+    return this.telaRepository.find({
+      where: { denominacion: denominacion },
+    });
   }
 
   // Obtener todas las telas
@@ -65,8 +72,15 @@ export class TelaService {
     return this.telaRepository.save(tela);
   }
 
-  async updateImg(id: number, idImagen: string): Promise<TelaEntity> {
-    const tela = await this.telaRepository.findOneBy({ id_tela: id });
+  async updateImg(nombreTela: string, idImagen: string): Promise<TelaEntity> {
+    function normalizeText(text: string): string {
+      return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    const normalizedNombreTela = normalizeText(nombreTela);
+    const tela = await this.telaRepository.findOne({
+      where: { denominacion: normalizedNombreTela },
+    });
     if (!tela) {
       throw new NotFoundException('Tela no encontrada');
     }
@@ -84,71 +98,53 @@ export class TelaService {
   }
 
   async filterTelas(filterTelaDto: FilterTelaDto): Promise<TelaEntity[]> {
-    const telas = await this.telaRepository.find({
-      relations: [
-        'aplicaciones_tela',
-        'tipo_estructurales',
-        'composiciones',
-        'conservaciones',
-        'estructura_ligamentos',
-        'caracteristicas_tecnicas',
-        'caracteristicas_visuales',
-      ],
-    });
+    const queryBuilder = this.telaRepository.createQueryBuilder('tela')
+      .leftJoinAndSelect('tela.aplicaciones_tela', 'aplicaciones_tela')
+      .leftJoinAndSelect('tela.tipo_estructurales', 'tipo_estructurales')
+      .leftJoinAndSelect('tela.composiciones', 'composiciones')
+      .leftJoinAndSelect('tela.conservaciones', 'conservaciones')
+      .leftJoinAndSelect('tela.estructura_ligamentos', 'estructura_ligamentos')
+      .leftJoinAndSelect('tela.caracteristicas_tecnicas', 'caracteristicas_tecnicas')
+      .leftJoinAndSelect('tela.caracteristicas_visuales', 'caracteristicas_visuales');
 
-    return telas.filter(tela => {
-      if (filterTelaDto.denominacion && !tela.denominacion.includes(filterTelaDto.denominacion)) {
-        return false;
-      }
+    if (filterTelaDto.denominacion) {
+      queryBuilder.andWhere('tela.denominacion LIKE :denominacion', { denominacion: `%${filterTelaDto.denominacion}%` });
+    }
 
-      if (filterTelaDto.ids_aplicaciones && !filterTelaDto.ids_aplicaciones.every(id => tela.aplicaciones_tela.some(aplicacion => aplicacion.id_aplicaciones === id))) {
-        return false;
-      }
+    if (filterTelaDto.ids_aplicaciones) {
+      queryBuilder.andWhere('aplicaciones_tela.id_aplicaciones IN (:...ids_aplicaciones)', { ids_aplicaciones: filterTelaDto.ids_aplicaciones });
+    }
 
-      if (filterTelaDto.ids_tipo_estructural && !filterTelaDto.ids_tipo_estructural.every(id => tela.tipo_estructurales.some(tipo => tipo.id_tipo_estructural === id))) {
-        return false;
-      }
+    if (filterTelaDto.ids_tipo_estructural) {
+      queryBuilder.andWhere('tipo_estructurales.id_tipo_estructural IN (:...ids_tipo_estructural)', { ids_tipo_estructural: filterTelaDto.ids_tipo_estructural });
+    }
 
-      if (filterTelaDto.ids_composicion && !filterTelaDto.ids_composicion.every(id => tela.composiciones.some(composicion => composicion.id === id))) {
-        return false;
-      }
+    if (filterTelaDto.ids_composicion) {
+      queryBuilder.andWhere('composiciones.id IN (:...ids_composicion)', { ids_composicion: filterTelaDto.ids_composicion });
+    }
 
-      if (filterTelaDto.ids_conservacion && !filterTelaDto.ids_conservacion.every(id => tela.conservaciones.some(conservacion => conservacion.id === id))) {
-        return false;
-      }
+    if (filterTelaDto.ids_conservacion) {
+      queryBuilder.andWhere('conservaciones.id IN (:...ids_conservacion)', { ids_conservacion: filterTelaDto.ids_conservacion });
+    }
 
-      if (filterTelaDto.ids_estructura_ligamento && !filterTelaDto.ids_estructura_ligamento.every(id => tela.estructura_ligamentos.some(estructura => estructura.id === id))) {
-        return false;
-      }
-      if (filterTelaDto.cac_tecnicas && filterTelaDto.cac_tecnicas.length === 3) {
-        const [resistencia, absorcion, elasticidad] = filterTelaDto.cac_tecnicas;
-        if (
-          !tela.caracteristicas_tecnicas.some(
-        tecnica =>
-          tecnica.resistencia === resistencia &&
-          tecnica.absorcion === absorcion &&
-          tecnica.elasticidad === elasticidad,
-          )
-        ) {
-          return false;
-        }
-      }
+    if (filterTelaDto.ids_estructura_ligamento) {
+      queryBuilder.andWhere('estructura_ligamentos.id IN (:...ids_estructura_ligamento)', { ids_estructura_ligamento: filterTelaDto.ids_estructura_ligamento });
+    }
 
-      if (filterTelaDto.cac_visuales && filterTelaDto.cac_visuales.length === 3) {
-        const [transparencia, brillo, tacto] = filterTelaDto.cac_visuales;
-        if (
-          !tela.caracteristicas_visuales.some(
-        visual =>
-          visual.transparencia === transparencia &&
-          visual.brillo === brillo &&
-          visual.tacto === tacto,
-          )
-        ) {
-          return false;
-        }
-      }
+    if (filterTelaDto.cac_tecnicas && filterTelaDto.cac_tecnicas.length === 3) {
+      const [resistencia, absorcion, elasticidad] = filterTelaDto.cac_tecnicas;
+      queryBuilder.andWhere('caracteristicas_tecnicas.resistencia = :resistencia', { resistencia })
+        .andWhere('caracteristicas_tecnicas.absorcion = :absorcion', { absorcion })
+        .andWhere('caracteristicas_tecnicas.elasticidad = :elasticidad', { elasticidad });
+    }
 
-      return true;
-    });
+    if (filterTelaDto.cac_visuales && filterTelaDto.cac_visuales.length === 3) {
+      const [transparencia, brillo, tacto] = filterTelaDto.cac_visuales;
+      queryBuilder.andWhere('caracteristicas_visuales.transparencia = :transparencia', { transparencia })
+        .andWhere('caracteristicas_visuales.brillo = :brillo', { brillo })
+        .andWhere('caracteristicas_visuales.tacto = :tacto', { tacto });
+    }
+
+    return queryBuilder.getMany();
   }
 }

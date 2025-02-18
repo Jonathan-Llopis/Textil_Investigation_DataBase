@@ -20,21 +20,11 @@ import { CacTecnicasModule } from 'src/cac_tecnicas/cac_tecnicas.module';
 @Module({
   imports: [
     MulterModule.registerAsync({
-      useFactory: () => ({
-        storage: multer.memoryStorage(),
-      }),
       useClass: GridFsMulterConfigService,
     }),
     forwardRef(() => TelaModule),
     UtilsModule,
     TypeOrmModule.forFeature([UserEntity]),
-    ComposicionModule,
-    AplicacionesModule,
-    ConservacionModule,
-    TipoEstructuralModule,
-    EstructuraLigamentosModule,
-    CacVisualesModule,
-    CacTecnicasModule
   ],
   controllers: [FilesController],
   providers: [GridFsMulterConfigService, FilesService],
