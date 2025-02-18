@@ -26,6 +26,7 @@ Campos de Características Técnicas
    - Dentro, encontrarás dos archivos importantes:
      - `Añadir Campos.xlsx`: Aquí solo debes escribir el nombre del campo en MAYÚSCULAS.
      - `Añadir Telas.xlsx`: En este archivo, si estás agregando telas, debes escribir todos los campos en MAYÚSCULAS. Estos campos deben haber sido creados antes.
+     - `Imagenes`: Aqui situa las imagenes de las telas con la misma denominacion SIN ACCENTOS.
 
 2. **Abrir el terminal**
    - **En Windows:**
