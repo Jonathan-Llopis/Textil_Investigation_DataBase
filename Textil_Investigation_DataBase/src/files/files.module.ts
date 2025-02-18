@@ -19,10 +19,10 @@ import { CacTecnicasModule } from 'src/cac_tecnicas/cac_tecnicas.module';
 
 @Module({
   imports: [
-    MulterModule.register({
-      storage: multer.memoryStorage(),
-    }),
     MulterModule.registerAsync({
+      useFactory: () => ({
+        storage: multer.memoryStorage(),
+      }),
       useClass: GridFsMulterConfigService,
     }),
     forwardRef(() => TelaModule),
